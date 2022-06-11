@@ -16,10 +16,6 @@ import javax.persistence.*;
 @Table(name = "members")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_serial_number")
-    private Long serialNumber;
-
     private String id;
 
     private String password;

@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
-    private String id;
-    private String password;
-    private String email;
-    private String state;
+public class Project {
+    private Long serialNumber;
+    private String adminId;
+    private String name;
+    private String status;
 }

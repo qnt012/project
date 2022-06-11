@@ -18,28 +18,28 @@ public class DefaultMemberService implements MemberService {
 
     @Override
     public void createMember(MemberCreateRequest request) {
-        Member member = new Member(null, request.getId(), passwordEncoder.encode(request.getPassword()), request.getEmail(), "가입");
+        Member member = new Member(request.getId(), passwordEncoder.encode(request.getPassword()), request.getEmail(), "가입");
         memberRepository.save(member);
     }
 
     @Override
-    public void updateMemberStateActive(Long serialNumber) {
-        memberRepository.updateMemberState(serialNumber, "가입");
+    public void updateMemberStateActive(String id) {
+        memberRepository.updateMemberState(id, "가입");
     }
 
     @Override
-    public void updateMemberStateDormant(Long serialNumber) {
-        memberRepository.updateMemberState(serialNumber, "휴면");
+    public void updateMemberStateDormant(String id) {
+        memberRepository.updateMemberState(id, "휴면");
     }
 
     @Override
-    public void updateMemberStateWithdraw(Long serialNumber) {
-        memberRepository.updateMemberState(serialNumber, "탈퇴");
+    public void updateMemberStateWithdraw(String id) {
+        memberRepository.updateMemberState(id, "탈퇴");
     }
 
     @Override
-    public Optional<Member> getMember(Long serialNumber) {
-        return memberRepository.findById(serialNumber);
+    public Optional<Member> getMember(String id) {
+        return memberRepository.findById(id);
     }
 
     @Override

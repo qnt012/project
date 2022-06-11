@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_serial_number")
     private Long serialNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,7 +25,7 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns(value = {
-            @JoinColumn(name = "member_serial_number"),
+            @JoinColumn(name = "member_id"),
             @JoinColumn(name = "project_serial_number")
     })
     private ProjectMember projectMember;

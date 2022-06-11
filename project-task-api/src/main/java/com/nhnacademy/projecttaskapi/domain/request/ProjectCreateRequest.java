@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProjectCreateRequest {
-    private final Long adminSerialNumber;
+    private final String adminId;
     private final String name;
 }

@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tag_serial_number")
     private Long serialNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)

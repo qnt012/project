@@ -7,13 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
-    Optional<Member> findById(String id);
+public interface MemberRepository extends JpaRepository<Member, String> {
 
     @Transactional
     @Modifying
-    @Query("update Member set state = :state where serialNumber = :serialNumber")
-    void updateMemberState(@Param("serialNumber") Long serialNumber, @Param("state") String state);
+    @Query("update Member set state = :state where id = :id")
+    void updateMemberState(@Param("id") String id, @Param("state") String state);
 }

@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class Milestone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "milestone_serial_number")
     private String serialNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)

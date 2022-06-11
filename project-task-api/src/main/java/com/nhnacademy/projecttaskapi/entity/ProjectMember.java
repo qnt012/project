@@ -27,8 +27,8 @@ public class ProjectMember {
     @EqualsAndHashCode
     @Embeddable
     public static class Pk implements Serializable {
-        @Column(name = "member_serial_number")
-        private Long memberSerialNumber;
+        @Column(name = "member_id")
+        private String memberId;
         private Long projectSerialNumber;
     }
 }

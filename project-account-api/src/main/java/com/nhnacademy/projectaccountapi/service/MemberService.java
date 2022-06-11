@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface MemberService {
     void createMember(MemberCreateRequest request);
-    void updateMemberStateActive(Long serialNumber);
-    void updateMemberStateDormant(Long serialNumber);
-    void updateMemberStateWithdraw(Long serialNumber);
-    Optional<Member> getMember(Long serialNumber);
+    void updateMemberStateActive(String id);
+    void updateMemberStateDormant(String id);
+    void updateMemberStateWithdraw(String id);
+    Optional<Member> getMember(String id);
     Optional<Member> login(String id, String password);
 }

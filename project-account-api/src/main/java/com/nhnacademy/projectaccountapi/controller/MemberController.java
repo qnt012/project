@@ -25,26 +25,26 @@ public class MemberController {
         return memberService.login(request.getId(), request.getPassword()).orElse(null);
     }
 
-    @GetMapping("/{serialNumber}")
-    public Member getMember(@PathVariable Long serialNumber) {
-        return memberService.getMember(serialNumber).orElse(null);
+    @GetMapping("/{id}")
+    public Member getMember(@PathVariable String id) {
+        return memberService.getMember(id).orElse(null);
     }
 
-    @GetMapping("/active/{serialNumber}")
+    @GetMapping("/active/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void getActive(@PathVariable Long serialNumber) {
-        memberService.updateMemberStateActive(serialNumber);
+    public void getActive(@PathVariable String id) {
+        memberService.updateMemberStateActive(id);
     }
 
-    @GetMapping("/dormant/{serialNumber}")
+    @GetMapping("/dormant/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void getDormant(@PathVariable Long serialNumber) {
-        memberService.updateMemberStateDormant(serialNumber);
+    public void getDormant(@PathVariable String id) {
+        memberService.updateMemberStateDormant(id);
     }
 
-    @GetMapping("/withdraw/{serialNumber}")
+    @GetMapping("/withdraw/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void getWithdraw(@PathVariable Long serialNumber) {
-        memberService.updateMemberStateWithdraw(serialNumber);
+    public void getWithdraw(@PathVariable String id) {
+        memberService.updateMemberStateWithdraw(id);
     }
 }
