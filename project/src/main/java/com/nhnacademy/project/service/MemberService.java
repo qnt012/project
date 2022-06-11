@@ -8,4 +8,6 @@ public interface MemberService {
     boolean login(String id, String password);
 
     void putMemberAuthentication(Member member);
+
+    Member getMember(String id);
 }

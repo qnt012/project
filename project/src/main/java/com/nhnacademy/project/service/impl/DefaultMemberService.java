@@ -52,4 +52,9 @@ public class DefaultMemberService implements MemberService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
     }
+
+    @Override
+    public Member getMember(String id) {
+        return memberRepository.findById(id);
+    }
 }

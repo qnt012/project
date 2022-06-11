@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>members</title>
+</head>
+<body>
+<!--<h1 th:text="${project.name}"></h1>-->
+<table>
+    <tr>
+        <th>아이디</th>
+        <th>이메일</th>
+        <th>상태</th>
+    </tr>
+    <tr th:each="member : ${members}">
+        <td th:text="${member.id}"></td>
+        <td th:text="${member.email}"></td>
+        <td th:text="${member.state}"></td>
+    </tr>
+</table>
+<!--<a th:href="@{|/projects/${project.serialNumber}/members/create|}"></a>등록-->
+</body>
+</html>

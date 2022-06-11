@@ -1,5 +1,6 @@
 package com.nhnacademy.projecttaskapi.controller;
 
+import com.nhnacademy.projecttaskapi.domain.dto.ProjectMemberDto;
 import com.nhnacademy.projecttaskapi.domain.request.ProjectCreateRequest;
 import com.nhnacademy.projecttaskapi.entity.Project;
 import com.nhnacademy.projecttaskapi.service.ProjectService;
@@ -29,5 +30,12 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(projectService.createProject(request));
+    }
+
+    @GetMapping("{serialNumber}/members")
+    public ResponseEntity<List<ProjectMemberDto>> getProjectMembers(@PathVariable Long serialNumber) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(projectService.getProjectMembers(serialNumber));
     }
 }

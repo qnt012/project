@@ -12,12 +12,14 @@
         <th>관리자</th>
         <th>이름</th>
         <th>상태</th>
+        <th>회원관리</th>
     </tr>
     <tr th:each="project : ${projects}">
         <td th:text="${project.serialNumber}"></td>
         <td th:text="${project.adminId}"></td>
         <td><a th:href="@{|/tasks/${project.serialNumber}|}" th:text="${project.name}"></a></td>
         <td th:text="${project.status}"></td>
+        <td><a th:href="@{|/projects/${project.serialNumber}/members|}">회원관리</a></td>
     </tr>
 </table>
 <a th:href="@{|/projects/create|}">생성</a>

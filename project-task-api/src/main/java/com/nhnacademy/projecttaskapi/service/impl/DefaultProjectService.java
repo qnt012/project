@@ -1,5 +1,6 @@
 package com.nhnacademy.projecttaskapi.service.impl;
 
+import com.nhnacademy.projecttaskapi.domain.dto.ProjectMemberDto;
 import com.nhnacademy.projecttaskapi.domain.request.ProjectCreateRequest;
 import com.nhnacademy.projecttaskapi.entity.Project;
 import com.nhnacademy.projecttaskapi.entity.ProjectMember;
@@ -30,5 +31,10 @@ public class DefaultProjectService implements ProjectService {
     @Override
     public List<Project> getProjects(String memberId) {
         return projectRepository.findAllByMember(memberId);
+    }
+
+    @Override
+    public List<ProjectMemberDto> getProjectMembers(Long projectSerialNumber) {
+        return projectMemberRepository.findAllByPkProjectSerialNumber(projectSerialNumber);
     }
 }

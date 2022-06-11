@@ -5,8 +5,10 @@ import com.nhnacademy.project.domain.request.member.MemberLoginRequest;
 import com.nhnacademy.project.entity.Member;
 import com.nhnacademy.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,4 +45,13 @@ public class MemberAdaptor implements MemberRepository {
         ).getBody();
     }
 
+    @Override
+    public Member findById(String id) {
+        return restTemplate.exchange(
+                "http://localhost:9090/members/"+id,
+                HttpMethod.GET,
+                null,
+                Member.class
+        ).getBody();
+    }
 }
