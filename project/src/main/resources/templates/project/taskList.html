@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>taskList</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>번호</th>
+        <th>관리자</th>
+        <th>등록자</th>
+    </tr>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.serialNumber}"></td>
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.memberId}"></td>
+    </tr>
+</table>
+</body>
+</html>

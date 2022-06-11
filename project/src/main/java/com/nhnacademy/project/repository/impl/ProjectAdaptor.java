@@ -1,6 +1,7 @@
 package com.nhnacademy.project.repository.impl;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
+import com.nhnacademy.project.domain.dto.TaskDto;
 import com.nhnacademy.project.domain.request.project.ProjectCreateRequest;
 import com.nhnacademy.project.domain.request.project.ProjectMemberCreateRequest;
 import com.nhnacademy.project.entity.Project;
@@ -10,8 +11,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -69,20 +68,14 @@ public class ProjectAdaptor implements ProjectRepository {
 
     @Override
     public Project findById(Long serialNumber) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<Project> exchange = restTemplate.exchange(
+         return restTemplate.exchange(
                 "http://localhost:7070/projects/" + serialNumber,
                 HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<>() {
-                });
-        return exchange.getBody();
+                null,
+                Project.class).getBody();
     }
 
+    @Override
     public void insertProjectMember(Long serialNumber, String memberId) {
         ProjectMemberCreateRequest body = new ProjectMemberCreateRequest(serialNumber, memberId);
 
@@ -95,5 +88,21 @@ public class ProjectAdaptor implements ProjectRepository {
                 request,
                 Void.class
         );
+    }
+
+    @Override
+    public List<TaskDto> findTasks(Long projectSerialNumber) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<TaskDto>> exchange = restTemplate.exchange(
+                "http://localhost:7070/tasks/" + projectSerialNumber,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        return exchange.getBody();
     }
 }

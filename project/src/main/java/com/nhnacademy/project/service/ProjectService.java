@@ -10,6 +10,5 @@ public interface ProjectService {
     void createProject(String adminId, String name);
     List<Member> getProjectMembers(Long projectSerialNumber);
     Project getProject(Long serialNumber);
-
     void addProjectMember(Long serialNumber,  String memberId);
 }

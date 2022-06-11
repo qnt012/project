@@ -33,6 +33,6 @@ public class Task {
     @Column(name = "task_title")
     private String title;
 
-    @Column(name = "task-content")
+    @Column(name = "task_content")
     private String content;
 }
