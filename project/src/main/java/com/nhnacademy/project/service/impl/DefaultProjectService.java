@@ -43,4 +43,9 @@ public class DefaultProjectService implements ProjectService {
     public Project getProject(Long serialNumber) {
         return projectAdaptor.findById(serialNumber);
     }
+
+    @Override
+    public void addProjectMember(Long serialNumber, String memberId) {
+        projectAdaptor.insertProjectMember(serialNumber, memberId);
+    }
 }

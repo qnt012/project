@@ -6,13 +6,24 @@ import com.nhnacademy.projectaccountapi.entity.Member;
 import com.nhnacademy.projectaccountapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("members")
 public class MemberController {
     private final MemberService memberService;
+
+    @GetMapping
+    private ResponseEntity<List<Member>> getMembers() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(memberService.getMembers());
+    }
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)

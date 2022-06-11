@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>projectMemberList</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>아이디</th>
+        <th>등록</th>
+    </tr>
+    <tr th:each="member : ${members}">
+        <td th:text="${member.id}"></td>
+        <td><a th:href="@{|/projects/${projectSerialNumber}/members/create/${member.id}|}">등록</a></td>
+    </tr>
+</table>
+</body>
+</html>

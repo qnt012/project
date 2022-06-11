@@ -3,6 +3,7 @@ package com.nhnacademy.projectaccountapi.service;
 import com.nhnacademy.projectaccountapi.domain.request.MemberCreateRequest;
 import com.nhnacademy.projectaccountapi.entity.Member;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberService {
@@ -10,6 +11,7 @@ public interface MemberService {
     void updateMemberStateActive(String id);
     void updateMemberStateDormant(String id);
     void updateMemberStateWithdraw(String id);
+    List<Member> getMembers();
     Optional<Member> getMember(String id);
     Optional<Member> login(String id, String password);
 }

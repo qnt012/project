@@ -5,12 +5,12 @@ import com.nhnacademy.project.domain.request.member.MemberLoginRequest;
 import com.nhnacademy.project.entity.Member;
 import com.nhnacademy.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 
 @Repository
@@ -53,5 +53,21 @@ public class MemberAdaptor implements MemberRepository {
                 null,
                 Member.class
         ).getBody();
+    }
+
+    @Override
+    public List<Member> findAll() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<Member>> exchange = restTemplate.exchange(
+                "http://localhost:9090/members",
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        return exchange.getBody();
     }
 }

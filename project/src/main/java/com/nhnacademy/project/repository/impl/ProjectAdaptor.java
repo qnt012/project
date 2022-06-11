@@ -2,6 +2,7 @@ package com.nhnacademy.project.repository.impl;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
 import com.nhnacademy.project.domain.request.project.ProjectCreateRequest;
+import com.nhnacademy.project.domain.request.project.ProjectMemberCreateRequest;
 import com.nhnacademy.project.entity.Project;
 import com.nhnacademy.project.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -78,5 +81,19 @@ public class ProjectAdaptor implements ProjectRepository {
                 new ParameterizedTypeReference<>() {
                 });
         return exchange.getBody();
+    }
+
+    public void insertProjectMember(Long serialNumber, String memberId) {
+        ProjectMemberCreateRequest body = new ProjectMemberCreateRequest(serialNumber, memberId);
+
+        RequestEntity<ProjectMemberCreateRequest> request = RequestEntity
+                .post("http://localhost:7070/projects/members/insert")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(body);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
     }
 }

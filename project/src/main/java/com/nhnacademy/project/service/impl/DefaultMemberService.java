@@ -57,4 +57,9 @@ public class DefaultMemberService implements MemberService {
     public Member getMember(String id) {
         return memberRepository.findById(id);
     }
+
+    @Override
+    public List<Member> getMembers() {
+        return memberRepository.findAll();
+    }
 }
