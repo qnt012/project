@@ -2,7 +2,7 @@ GET http://localhost:7070/projects/user
 Accept: application/json
 
 ###
-POST http://localhost:7070/projects/create
+POST http://localhost:7070/projects/insert
 Content-Type: application/json
 
 {

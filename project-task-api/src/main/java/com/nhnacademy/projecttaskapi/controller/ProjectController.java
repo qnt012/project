@@ -24,7 +24,7 @@ public class ProjectController {
                 .body(projectService.getProjects(memberId));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/insert")
     public ResponseEntity<Project> postCreate(@RequestBody ProjectCreateRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)

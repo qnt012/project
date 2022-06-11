@@ -1,10 +1,12 @@
 package com.nhnacademy.project.repository.impl;
 
+import com.nhnacademy.project.domain.request.project.ProjectCreateRequest;
 import com.nhnacademy.project.entity.Project;
 import com.nhnacademy.project.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,5 +31,20 @@ public class ProjectAdaptor implements ProjectRepository {
                 new ParameterizedTypeReference<>() {
                 });
         return exchange.getBody();
+    }
+
+    @Override
+    public void insert(String adminId, String name) {
+        ProjectCreateRequest body = new ProjectCreateRequest(adminId, name);
+
+        RequestEntity<ProjectCreateRequest> request = RequestEntity
+                .post("http://localhost:7070/projects/insert")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(body);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
     }
 }

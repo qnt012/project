@@ -1,4 +1,4 @@
-package com.nhnacademy.project.domain.request;
+package com.nhnacademy.project.domain.request.member;
 
 import lombok.Data;
 

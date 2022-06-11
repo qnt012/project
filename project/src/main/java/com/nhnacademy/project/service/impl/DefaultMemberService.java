@@ -1,6 +1,6 @@
 package com.nhnacademy.project.service.impl;
 
-import com.nhnacademy.project.domain.request.MemberCreateRequest;
+import com.nhnacademy.project.domain.request.member.MemberCreateRequest;
 import com.nhnacademy.project.entity.Member;
 import com.nhnacademy.project.repository.MemberRepository;
 import com.nhnacademy.project.service.MemberService;

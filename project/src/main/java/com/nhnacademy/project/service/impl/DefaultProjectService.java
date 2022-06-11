@@ -13,9 +13,13 @@ import java.util.List;
 public class DefaultProjectService implements ProjectService {
     private final ProjectAdaptor projectAdaptor;
 
-
     @Override
     public List<Project> getProjects(String id) {
         return projectAdaptor.findAll(id);
+    }
+
+    @Override
+    public void createProject(String adminId, String name) {
+        projectAdaptor.insert(adminId, name);
     }
 }
