@@ -1,0 +1,9 @@
+POST http://localhost:7070/projects/create
+Content-Type: application/json
+
+{
+  "adminSerialNumber": 1,
+  "name": "project1"
+}
+
+###
