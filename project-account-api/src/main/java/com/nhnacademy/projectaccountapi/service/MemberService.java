@@ -13,5 +13,4 @@ public interface MemberService {
     void updateMemberStateWithdraw(String id);
     List<Member> getMembers();
     Optional<Member> getMember(String id);
-    Optional<Member> login(String id, String password);
 }

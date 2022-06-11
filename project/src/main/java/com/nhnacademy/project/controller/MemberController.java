@@ -17,14 +17,6 @@ public class MemberController {
         return "member/login";
     }
 
-
-    @PostMapping("/auth/login")
-    public String postLogin(@RequestParam("id") String id, @RequestParam("pwd") String password) {
-        boolean loginSuccess = memberService.login(id, password);
-        if (loginSuccess) return "redirect:/";
-        return "redirect:/auth/login";
-    }
-
     @GetMapping("/signUp")
     public String getSignUp() {
         return "member/signUp";

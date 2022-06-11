@@ -5,6 +5,7 @@
     <title>projectList</title>
 </head>
 <body>
+<a th:href="@{/}">시작페이지</a>
 <h1>프로젝트</h1>
 <table>
     <tr>
@@ -19,7 +20,9 @@
         <td th:text="${project.adminId}"></td>
         <td><a th:href="@{|/tasks/${project.serialNumber}|}" th:text="${project.name}"></a></td>
         <td th:text="${project.status}"></td>
-        <td><a th:href="@{|/projects/${project.serialNumber}/members|}">회원관리</a></td>
+        <td>
+            <a th:if="${#strings.equals(project.adminId, username)}" th:href="@{|/projects/${project.serialNumber}/members|}">회원관리</a>
+        </td>
     </tr>
 </table>
 <a th:href="@{|/projects/create|}">생성</a>

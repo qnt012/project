@@ -31,11 +31,6 @@ public class MemberController {
         memberService.createMember(request);
     }
 
-    @PostMapping("/login")
-    public Member postLogin(@RequestBody MemberLoginRequest request) {
-        return memberService.login(request.getId(), request.getPassword()).orElse(null);
-    }
-
     @GetMapping("/{id}")
     public Member getMember(@PathVariable String id) {
         return memberService.getMember(id).orElse(null);

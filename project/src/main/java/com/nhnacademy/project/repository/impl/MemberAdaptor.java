@@ -1,7 +1,6 @@
 package com.nhnacademy.project.repository.impl;
 
 import com.nhnacademy.project.domain.request.member.MemberCreateRequest;
-import com.nhnacademy.project.domain.request.member.MemberLoginRequest;
 import com.nhnacademy.project.entity.Member;
 import com.nhnacademy.project.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,20 +28,6 @@ public class MemberAdaptor implements MemberRepository {
             requestEntity,
             Void.class
         );
-    }
-
-    @Override
-    public Member login(String id, String password) {
-        MemberLoginRequest body = new MemberLoginRequest(id, password);
-        RequestEntity<MemberLoginRequest> request = RequestEntity
-            .post("http://localhost:9090/members/login")
-            .accept(MediaType.APPLICATION_JSON)
-            .body(body);
-
-        return restTemplate.exchange(
-            request,
-            Member.class
-        ).getBody();
     }
 
     @Override

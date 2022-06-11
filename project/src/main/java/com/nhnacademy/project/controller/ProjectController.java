@@ -21,6 +21,7 @@ public class ProjectController {
     @GetMapping
     public String getProjects(Principal principal,
                               ModelMap modelMap) {
+        modelMap.put("username", principal.getName());
         modelMap.put("projects", projectService.getProjects(principal.getName()));
         return "project/projectList";
     }
