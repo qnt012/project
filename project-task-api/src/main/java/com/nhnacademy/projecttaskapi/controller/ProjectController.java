@@ -18,7 +18,14 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
 
-    @GetMapping("{memberId}")
+    @GetMapping("{serialNumber}")
+    public ResponseEntity<Project> getProject(@PathVariable Long serialNumber) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(projectService.getProject(serialNumber));
+    }
+
+    @GetMapping("/list/{memberId}")
     public ResponseEntity<List<Project>> getProjects(@PathVariable String memberId) {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)

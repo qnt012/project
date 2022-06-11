@@ -12,4 +12,6 @@ public interface ProjectService {
     List<Project> getProjects(String memberId);
 
     List<ProjectMemberDto> getProjectMembers(Long projectSerialNumber);
+
+    Project getProject(Long serialNumber);
 }

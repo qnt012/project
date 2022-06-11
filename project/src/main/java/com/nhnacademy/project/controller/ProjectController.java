@@ -1,7 +1,5 @@
 package com.nhnacademy.project.controller;
 
-import com.nhnacademy.project.repository.MemberRepository;
-import com.nhnacademy.project.service.MemberService;
 import com.nhnacademy.project.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -38,9 +36,8 @@ public class ProjectController {
     @GetMapping("{serialNumber}/members")
     public String getProjectMembers(@PathVariable Long serialNumber,
                                     ModelMap modelMap) {
+        modelMap.put("project", projectService.getProject(serialNumber));
         modelMap.put("members", projectService.getProjectMembers(serialNumber));
         return "project/members";
     }
-
-
 }

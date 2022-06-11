@@ -20,7 +20,7 @@ public class DefaultProjectService implements ProjectService {
 
     @Override
     public List<Project> getProjects(String id) {
-        return projectAdaptor.findAll(id);
+        return projectAdaptor.findAllByMemberId(id);
     }
 
     @Override
@@ -37,5 +37,10 @@ public class DefaultProjectService implements ProjectService {
             projectMembers.add(memberAdaptor.findById(projectMember.getPkMemberId()));
         }
         return projectMembers;
+    }
+
+    @Override
+    public Project getProject(Long serialNumber) {
+        return projectAdaptor.findById(serialNumber);
     }
 }

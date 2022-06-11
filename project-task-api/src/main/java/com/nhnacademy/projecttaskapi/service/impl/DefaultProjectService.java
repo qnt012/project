@@ -4,6 +4,7 @@ import com.nhnacademy.projecttaskapi.domain.dto.ProjectMemberDto;
 import com.nhnacademy.projecttaskapi.domain.request.ProjectCreateRequest;
 import com.nhnacademy.projecttaskapi.entity.Project;
 import com.nhnacademy.projecttaskapi.entity.ProjectMember;
+import com.nhnacademy.projecttaskapi.exception.ProjectNotFoundException;
 import com.nhnacademy.projecttaskapi.repository.ProjectMemberRepository;
 import com.nhnacademy.projecttaskapi.repository.ProjectRepository;
 import com.nhnacademy.projecttaskapi.service.ProjectService;
@@ -36,5 +37,10 @@ public class DefaultProjectService implements ProjectService {
     @Override
     public List<ProjectMemberDto> getProjectMembers(Long projectSerialNumber) {
         return projectMemberRepository.findAllByPkProjectSerialNumber(projectSerialNumber);
+    }
+
+    @Override
+    public Project getProject(Long serialNumber) {
+        return projectRepository.findById(serialNumber).orElseThrow(ProjectNotFoundException::new);
     }
 }

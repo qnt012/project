@@ -9,4 +9,5 @@ public interface ProjectService {
     List<Project> getProjects(String id);
     void createProject(String adminId, String name);
     List<Member> getProjectMembers(Long projectSerialNumber);
+    Project getProject(Long serialNumber);
 }

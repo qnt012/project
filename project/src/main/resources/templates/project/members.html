@@ -5,7 +5,7 @@
     <title>members</title>
 </head>
 <body>
-<!--<h1 th:text="${project.name}"></h1>-->
+<h1 th:text="${project.name}"></h1>
 <table>
     <tr>
         <th>아이디</th>
@@ -18,6 +18,6 @@
         <td th:text="${member.state}"></td>
     </tr>
 </table>
-<!--<a th:href="@{|/projects/${project.serialNumber}/members/create|}"></a>등록-->
+<a th:href="@{|/projects/${project.serialNumber}/members/create|}">등록</a>
 </body>
 </html>
