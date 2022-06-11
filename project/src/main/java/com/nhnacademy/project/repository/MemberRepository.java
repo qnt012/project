@@ -11,4 +11,6 @@ public interface MemberRepository{
     Member findById(String id);
 
     List<Member> findAll();
+
+    Member findByEmail(String email);
 }

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 public interface MemberRepository extends JpaRepository<Member, String> {
 
@@ -14,4 +16,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     @Modifying
     @Query("update Member set state = :state where id = :id")
     void updateMemberState(@Param("id") String id, @Param("state") String state);
+
+    Optional<Member> findByEmail(String email);
 }

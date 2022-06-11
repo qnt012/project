@@ -13,4 +13,6 @@ public interface MemberService {
     void updateMemberStateWithdraw(String id);
     List<Member> getMembers();
     Optional<Member> getMember(String id);
+
+    Optional<Member> getMemberByEmail(String email);
 }

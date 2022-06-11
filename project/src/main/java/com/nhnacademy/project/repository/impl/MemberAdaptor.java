@@ -55,4 +55,14 @@ public class MemberAdaptor implements MemberRepository {
                 });
         return exchange.getBody();
     }
+
+    @Override
+    public Member findByEmail(String email) {
+        return restTemplate.exchange(
+                "http://localhost:9090/members/email/"+email,
+                HttpMethod.GET,
+                null,
+                Member.class
+        ).getBody();
+    }
 }

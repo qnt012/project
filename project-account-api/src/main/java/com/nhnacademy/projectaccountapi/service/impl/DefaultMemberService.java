@@ -46,4 +46,9 @@ public class DefaultMemberService implements MemberService {
         return memberRepository.findById(id);
     }
 
+    @Override
+    public Optional<Member> getMemberByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
+
 }

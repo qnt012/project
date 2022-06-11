@@ -36,6 +36,11 @@ public class MemberController {
         return memberService.getMember(id).orElse(null);
     }
 
+    @GetMapping("/email/{email}")
+    public Member getMemberByEmail(@PathVariable String email) {
+        return memberService.getMemberByEmail(email).orElse(null);
+    }
+
     @GetMapping("/active/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void getActive(@PathVariable String id) {
