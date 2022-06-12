@@ -10,11 +10,27 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("tags")
 public class TagController {
     private final TagService tagService;
+
+    @GetMapping("{serialNumber}")
+    public ResponseEntity<Tag> getTag(@PathVariable Long serialNumber) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(tagService.getTag(serialNumber));
+    }
+
+    @GetMapping("list/{projectSerialNumber}")
+    public ResponseEntity<List<Tag>> getTags(@PathVariable Long projectSerialNumber) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(tagService.getTags(projectSerialNumber));
+    }
 
     @PostMapping("/insert")
     public ResponseEntity<Tag> postTagCreate(@RequestBody TagCreateRequest request){

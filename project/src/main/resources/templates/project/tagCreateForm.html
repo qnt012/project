@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tagCreateForm</title>
+</head>
+<body>
+<form method="post" th:action="@{|/tags/${projectSerialNumber}/create|}">
+    태그 이름: <input type="text" name="name"/>
+    <input type="submit"/>
+</form>
+</body>
+</html>

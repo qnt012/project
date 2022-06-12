@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DefaultTagService implements TagService {
@@ -37,5 +39,15 @@ public class DefaultTagService implements TagService {
     @Override
     public void removeTag(Long serialNumber) {
         tagRepository.deleteById(serialNumber);
+    }
+
+    @Override
+    public List<Tag> getTags(Long projectSerialNumber) {
+        return tagRepository.findAllByProjectSerialNumber(projectSerialNumber);
+    }
+
+    @Override
+    public Tag getTag(Long serialNumber) {
+        return tagRepository.findById(serialNumber).orElseThrow(TagNotFoundException::new);
     }
 }

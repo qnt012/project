@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tagList</title>
+</head>
+<body>
+<a th:href="@{/projects}">돌아가기</a>
+<table>
+    <tr>
+        <th>태그 번호</th>
+        <th>태그 이름</th>
+        <th>수정</th>
+        <th>삭제</th>
+    </tr>
+    <tr th:each="tag : ${tags}">
+        <td th:text="${tag.serialNumber}"></td>
+        <td th:text="${tag.name}"></td>
+        <td><a th:href="@{|/tags/${projectSerialNumber}/modify/${tag.serialNumber}|}">수정</a></td>
+        <td><a th:href="@{|/tags/${projectSerialNumber}/delete/${tag.serialNumber}|}">삭제</a></td>
+    </tr>
+</table>
+<a th:href="@{|/tags/${projectSerialNumber}/create|}">등록</a>
+</body>
+</html>

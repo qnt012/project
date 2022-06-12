@@ -2,12 +2,10 @@ package com.nhnacademy.project.repository.impl;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
 import com.nhnacademy.project.domain.dto.TaskDto;
-import com.nhnacademy.project.domain.request.project.MilestoneCreateRequest;
-import com.nhnacademy.project.domain.request.project.MilestoneModifyRequest;
-import com.nhnacademy.project.domain.request.project.ProjectCreateRequest;
-import com.nhnacademy.project.domain.request.project.ProjectMemberCreateRequest;
+import com.nhnacademy.project.domain.request.project.*;
 import com.nhnacademy.project.entity.Milestone;
 import com.nhnacademy.project.entity.Project;
+import com.nhnacademy.project.entity.Tag;
 import com.nhnacademy.project.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -171,5 +169,69 @@ public class ProjectAdaptor implements ProjectRepository {
             HttpMethod.DELETE,
             null,
             Void.class);
+    }
+
+    @Override
+    public Tag findTag(Long serialNumber) {
+        return restTemplate.exchange(
+                "http://localhost:7070/tags/" + serialNumber,
+                HttpMethod.GET,
+                null,
+                Tag.class).getBody();
+    }
+
+    @Override
+    public List<Tag> findAllTags(Long projectSerialNumber) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<Tag>> exchange = restTemplate.exchange(
+                "http://localhost:7070/tags/list/" + projectSerialNumber,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        return exchange.getBody();
+    }
+
+    @Override
+    public void insertTag(Long projectSerialNumber, String name) {
+        TagCreateRequest body = new TagCreateRequest(projectSerialNumber, name);
+
+        RequestEntity<TagCreateRequest> request = RequestEntity
+                .post("http://localhost:7070/tags/insert")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(body);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
+    }
+
+    @Override
+    public void updateTag(Long serialNumber, String name) {
+        TagModifyRequest body = new TagModifyRequest(serialNumber, name);
+
+        RequestEntity<TagModifyRequest> request = RequestEntity
+                .put("http://localhost:7070/tags/update")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(body);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
+    }
+
+    @Override
+    public void deleteTag(Long serialNumber) {
+        restTemplate.exchange(
+                "http://localhost:7070/tags/delete/" + serialNumber,
+                HttpMethod.DELETE,
+                null,
+                Void.class);
     }
 }
