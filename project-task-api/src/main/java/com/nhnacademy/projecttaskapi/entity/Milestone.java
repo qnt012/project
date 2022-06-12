@@ -17,9 +17,9 @@ public class Milestone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "milestone_serial_number")
-    private String serialNumber;
+    private Long serialNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "project_serial_number")
     private Project project;
 

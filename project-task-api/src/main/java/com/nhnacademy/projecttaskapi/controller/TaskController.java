@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/tasks/{projectSerialNumber}")
+@RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
 
-    @GetMapping
+    @GetMapping("/{projectSerialNumber}")
     public ResponseEntity<List<TaskDto>> getTasks(@PathVariable Long projectSerialNumber) {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
