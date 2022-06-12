@@ -6,9 +6,10 @@ import com.nhnacademy.project.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,5 +33,16 @@ public class TaskController {
         modelMap.put("milestones", milestoneService.getMilestones(projectSerialNumber));
         modelMap.put("tags", tagService.getTags(projectSerialNumber));
         return "project/taskCreateForm";
+    }
+
+    @PostMapping("/{projectSerialNumber}/create")
+    public String postTaskCreate(@PathVariable Long projectSerialNumber,
+                                 @RequestParam("title") String title,
+                                 @RequestParam("content") String content,
+                                 @RequestParam(value = "milestone", required=false) Long milestoneSerialNumber,
+                                 @RequestParam(value = "tags", required = false) List<Long> tagSerialNumbers,
+                                 Principal principal) {
+        taskService.createTask(projectSerialNumber, principal.getName(), title, content, milestoneSerialNumber, tagSerialNumbers);
+        return "redirect:/tasks/"+projectSerialNumber;
     }
 }

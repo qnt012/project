@@ -234,4 +234,19 @@ public class ProjectAdaptor implements ProjectRepository {
                 null,
                 Void.class);
     }
+
+    @Override
+    public void insertTask(Long projectSerialNumber, String memberId, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers) {
+        TaskCreateRequest body = new TaskCreateRequest(projectSerialNumber, memberId, title, content, milestoneSerialNumber, tagSerialNumbers);
+
+        RequestEntity<TaskCreateRequest> request = RequestEntity
+                .post("http://localhost:7070/tasks/insert")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(body);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
+    }
 }

@@ -17,4 +17,9 @@ public class DefaultTaskService implements TaskService {
     public List<TaskDto> getTasks(Long projectSerialNumber) {
         return projectRepository.findTasks(projectSerialNumber);
     }
+
+    @Override
+    public void createTask(Long projectSerialNumber, String memberId, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers) {
+        projectRepository.insertTask(projectSerialNumber, memberId, title, content, milestoneSerialNumber, tagSerialNumbers);
+    }
 }
