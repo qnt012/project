@@ -2,6 +2,7 @@ package com.nhnacademy.project.repository;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
 import com.nhnacademy.project.domain.dto.TaskDto;
+import com.nhnacademy.project.domain.dto.TaskTagDto;
 import com.nhnacademy.project.entity.Milestone;
 import com.nhnacademy.project.entity.Project;
 import com.nhnacademy.project.entity.Tag;
@@ -26,4 +27,6 @@ public interface ProjectRepository {
     void updateTag(Long serialNumber, String name);
     void deleteTag(Long serialNumber);
     void insertTask(Long projectSerialNumber, String memberId, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers);
+    TaskDto findTask(Long serialNumber);
+    List<TaskTagDto> findTaskTags(Long serialNumber);
 }

@@ -45,4 +45,12 @@ public class TaskController {
         taskService.createTask(projectSerialNumber, principal.getName(), title, content, milestoneSerialNumber, tagSerialNumbers);
         return "redirect:/tasks/"+projectSerialNumber;
     }
+
+    @GetMapping("/view/{serialNumber}")
+    public String getTaskView(@PathVariable Long serialNumber,
+                              ModelMap modelMap) {
+        modelMap.put("task", taskService.getTask(serialNumber));
+        modelMap.put("taskTags", taskService.getTaskTags(serialNumber));
+        return "project/taskView";
+    }
 }

@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>taskView</title>
+    <style>
+        .content {
+            border: solid 1px black;
+        }
+        .underline {
+            text-decoration: underline;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
+[업무번호] <span th:text="${task.serialNumber}"></span><br/>
+[등록자] <span th:text="${task.memberId}"></span><br/><br/>
+[업무제목] <span th:text="${task.title}"></span><br/><br/>
+[업무내용] <p class="content" th:text="${task.content}"></p><br/>
 
+<div th:if="${task.milestoneName != null }">
+    [마일스톤] <span class="underline" th:text="${task.milestoneName}"></span>
+</div><br/>
+<div th:if="${!#lists.isEmpty(taskTags)}">
+    [태그]
+    <span class="underline" th:each="taskTag : ${taskTags}" th:text="${taskTag.tagName+''}"></span>
+</div>
 </body>
 </html>

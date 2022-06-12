@@ -1,6 +1,7 @@
 package com.nhnacademy.project.service.impl;
 
 import com.nhnacademy.project.domain.dto.TaskDto;
+import com.nhnacademy.project.domain.dto.TaskTagDto;
 import com.nhnacademy.project.repository.ProjectRepository;
 import com.nhnacademy.project.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,15 @@ public class DefaultTaskService implements TaskService {
     @Override
     public void createTask(Long projectSerialNumber, String memberId, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers) {
         projectRepository.insertTask(projectSerialNumber, memberId, title, content, milestoneSerialNumber, tagSerialNumbers);
+    }
+
+    @Override
+    public TaskDto getTask(Long serialNumber) {
+        return projectRepository.findTask(serialNumber);
+    }
+
+    @Override
+    public List<TaskTagDto> getTaskTags(Long serialNumber) {
+        return projectRepository.findTaskTags(serialNumber);
     }
 }

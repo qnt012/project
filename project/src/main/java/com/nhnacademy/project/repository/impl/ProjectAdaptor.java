@@ -2,6 +2,7 @@ package com.nhnacademy.project.repository.impl;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
 import com.nhnacademy.project.domain.dto.TaskDto;
+import com.nhnacademy.project.domain.dto.TaskTagDto;
 import com.nhnacademy.project.domain.request.project.*;
 import com.nhnacademy.project.entity.Milestone;
 import com.nhnacademy.project.entity.Project;
@@ -248,5 +249,30 @@ public class ProjectAdaptor implements ProjectRepository {
                 request,
                 Void.class
         );
+    }
+
+    @Override
+    public TaskDto findTask(Long serialNumber) {
+        return restTemplate.exchange(
+                "http://localhost:7070/tasks/" + serialNumber,
+                HttpMethod.GET,
+                null,
+                TaskDto.class).getBody();
+    }
+
+    @Override
+    public List<TaskTagDto> findTaskTags(Long serialNumber) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<TaskTagDto>> exchange = restTemplate.exchange(
+                "http://localhost:7070/tasks/tags/" + serialNumber,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        return exchange.getBody();
     }
 }

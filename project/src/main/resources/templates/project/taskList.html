@@ -14,7 +14,9 @@
     </tr>
     <tr th:each="task : ${tasks}">
         <td th:text="${task.serialNumber}"></td>
-        <td th:text="${task.title}"></td>
+        <td>
+            <a th:href="@{|/tasks/view/${task.serialNumber}|}" th:text="${task.title}"></a>
+        </td>
         <td th:text="${task.milestoneName}"></td>
         <td th:text="${task.memberId}"></td>
     </tr>

@@ -24,7 +24,7 @@ public class TaskRepositoryImpl extends QuerydslRepositorySupport implements Tas
         query.leftJoin(task.milestone);
         query.select(Projections.bean(TaskDto.class,
                 task.serialNumber,
-                task.milestone.name,
+                task.milestone.name.as("milestoneName"),
                 task.projectMember.pk.memberId,
                 task.title,
                 task.content
@@ -42,7 +42,7 @@ public class TaskRepositoryImpl extends QuerydslRepositorySupport implements Tas
         query.leftJoin(task.milestone);
         query.select(Projections.bean(TaskDto.class,
                 task.serialNumber,
-                task.milestone.name,
+                task.milestone.name.as("milestoneName"),
                 task.projectMember.pk.memberId,
                 task.title,
                 task.content
