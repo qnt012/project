@@ -1,32 +1,36 @@
 package com.nhnacademy.project.controller;
 
-import com.nhnacademy.project.entity.Project;
-import com.nhnacademy.project.service.ProjectService;
+import com.nhnacademy.project.service.MilestoneService;
+import com.nhnacademy.project.service.TagService;
 import com.nhnacademy.project.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/tasks/{projectSerialNumber}")
+@RequestMapping("tasks")
 public class TaskController {
-    private final ProjectService projectService;
     private final TaskService taskService;
+    private final MilestoneService milestoneService;
+    private final TagService tagService;
 
-    @ModelAttribute("project")
-    public Project getProject(@PathVariable Long projectSerialNumber) {
-        return projectService.getProject(projectSerialNumber);
-    }
-
-    @GetMapping
+    @GetMapping("/{projectSerialNumber}")
     public String getTasks(@PathVariable Long projectSerialNumber,
                            ModelMap modelMap) {
         modelMap.put("tasks", taskService.getTasks(projectSerialNumber));
         return "project/taskList";
+    }
+
+    @GetMapping("/{projectSerialNumber}/create")
+    public String getTaskCreate(@PathVariable Long projectSerialNumber,
+                                ModelMap modelMap) {
+        modelMap.put("projectSerialNumber", projectSerialNumber);
+        modelMap.put("milestones", milestoneService.getMilestones(projectSerialNumber));
+        modelMap.put("tags", tagService.getTags(projectSerialNumber));
+        return "project/taskCreateForm";
     }
 }
