@@ -1,6 +1,5 @@
 package com.nhnacademy.project.controller;
 
-import com.nhnacademy.project.entity.Milestone;
 import com.nhnacademy.project.service.MilestoneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
