@@ -2,6 +2,7 @@ package com.nhnacademy.project.repository;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
 import com.nhnacademy.project.domain.dto.TaskDto;
+import com.nhnacademy.project.entity.Milestone;
 import com.nhnacademy.project.entity.Project;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface ProjectRepository {
     Project findById(Long serialNumber);
     void insertProjectMember(Long serialNumber, String memberId);
     List<TaskDto> findTasks(Long projectSerialNumber);
+    List<Milestone> findAllMilestones(Long projectSerialNumber);
 }

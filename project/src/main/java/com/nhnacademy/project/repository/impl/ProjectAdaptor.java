@@ -4,6 +4,7 @@ import com.nhnacademy.project.domain.dto.ProjectMemberDto;
 import com.nhnacademy.project.domain.dto.TaskDto;
 import com.nhnacademy.project.domain.request.project.ProjectCreateRequest;
 import com.nhnacademy.project.domain.request.project.ProjectMemberCreateRequest;
+import com.nhnacademy.project.entity.Milestone;
 import com.nhnacademy.project.entity.Project;
 import com.nhnacademy.project.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -103,6 +104,22 @@ public class ProjectAdaptor implements ProjectRepository {
                 requestEntity,
                 new ParameterizedTypeReference<>() {
                 });
+        return exchange.getBody();
+    }
+
+    @Override
+    public List<Milestone> findAllMilestones(Long projectSerialNumber) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<Milestone>> exchange = restTemplate.exchange(
+            "http://localhost:7070/milestones/" + projectSerialNumber,
+            HttpMethod.GET,
+            requestEntity,
+            new ParameterizedTypeReference<>() {
+            });
         return exchange.getBody();
     }
 }

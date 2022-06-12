@@ -9,6 +9,7 @@ import com.nhnacademy.projecttaskapi.exception.ProjectNotFoundException;
 import com.nhnacademy.projecttaskapi.repository.MilestoneRepository;
 import com.nhnacademy.projecttaskapi.repository.ProjectRepository;
 import com.nhnacademy.projecttaskapi.service.MilestoneService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,10 @@ public class DefaultMilestoneService implements MilestoneService {
     @Override
     public void deleteMilestone(Long serialNumber) {
         milestoneRepository.deleteById(serialNumber);
+    }
+
+    @Override
+    public List<Milestone> getMilestones(Long projectSerialNumber) {
+        return milestoneRepository.findAllByProjectSerialNumber(projectSerialNumber);
     }
 }

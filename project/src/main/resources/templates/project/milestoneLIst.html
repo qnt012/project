@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>milestoneList</title>
+</head>
+<body>
+<a th:href="@{/projects}">돌아가기</a>
+<table>
+    <tr>
+        <th>마일스톤 번호</th>
+        <th>마일스톤 이름</th>
+        <th>수정</th>
+        <th>삭제</th>
+    </tr>
+    <tr th:each="milestone : ${milestones}">
+        <td th:text="${milestone.serialNumber}"></td>
+        <td th:text="${milestone.name}"></td>
+        <td><a>수정</a></td>
+        <td><a>삭제</a></td>
+    </tr>
+</table>
+<a th:href="@{|milestones/projectSerialNumber/create|}"></a>
+</body>
+</html>
