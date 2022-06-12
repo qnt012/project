@@ -10,4 +10,6 @@ public interface TaskService {
     List<TaskDto> getTasks(Long projectSerialNumber);
 
     Task createTask(TaskCreateRequest request);
+
+    TaskDto getTask(Long serialNumber);
 }

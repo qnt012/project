@@ -6,6 +6,7 @@ import com.nhnacademy.projecttaskapi.entity.*;
 import com.nhnacademy.projecttaskapi.exception.MilestoneNotFound;
 import com.nhnacademy.projecttaskapi.exception.ProjectMemberNotFoundException;
 import com.nhnacademy.projecttaskapi.exception.TagNotFoundException;
+import com.nhnacademy.projecttaskapi.exception.TaskNotFoundException;
 import com.nhnacademy.projecttaskapi.repository.*;
 import com.nhnacademy.projecttaskapi.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,10 @@ public class DefaultTaskService implements TaskService {
         }
 
         return task;
+    }
+
+    @Override
+    public TaskDto getTask(Long serialNumber) {
+        return taskRepository.findTask(serialNumber).orElseThrow(TaskNotFoundException::new);
     }
 }

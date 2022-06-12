@@ -9,10 +9,29 @@ import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TaskRepositoryImpl extends QuerydslRepositorySupport implements TaskRepositoryCustom {
     public TaskRepositoryImpl() {
         super(Task.class);
+    }
+
+    @Override
+    public Optional<TaskDto> findTask(Long serialNumber) {
+        QTask task = QTask.task;
+
+        JPQLQuery query = from(task);
+        query.leftJoin(task.milestone);
+        query.select(Projections.bean(TaskDto.class,
+                task.serialNumber,
+                task.milestone.name,
+                task.projectMember.pk.memberId,
+                task.title,
+                task.content
+        ));
+        query.where(task.serialNumber.eq(serialNumber));
+
+        return Optional.of((TaskDto) query.fetchOne());
     }
 
     @Override

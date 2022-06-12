@@ -60,3 +60,6 @@ Content-Type: application/json
   "adminId": "user",
   "name": "project1"
 }
+
+###
+GET http://localhost:7070/tasks/tags/2
