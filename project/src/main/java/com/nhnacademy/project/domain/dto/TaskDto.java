@@ -1,6 +1,5 @@
 package com.nhnacademy.project.domain.dto;
 
-import com.nhnacademy.project.entity.Milestone;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class TaskDto {
     private Long serialNumber;
-    private Milestone milestone;
+    private String milestoneName;
     private String memberId;
     private String title;
     private String content;
