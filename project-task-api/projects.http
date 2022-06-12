@@ -11,16 +11,37 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:7070/milestones/modify
+PUT http://localhost:7070/milestones/update
 Content-Type: application/json
 
 {
-  "serialNumber": 1,
+  "serialNumber": 4,
   "name": "과제"
 }
 
 ###
 DELETE http://localhost:7070/milestones/delete/1
+
+###
+POST http://localhost:7070/tags/insert
+Content-Type: application/json
+
+{
+  "projectSerialNumber": 1,
+  "name": "springboot"
+}
+
+###
+PUT http://localhost:7070/tags/update
+Content-Type: application/json
+
+{
+  "serialNumber": 1,
+  "name": "java"
+}
+
+###
+DELETE http://localhost:7070/tags/delete/1
 
 ###
 GET http://localhost:7070/projects/user

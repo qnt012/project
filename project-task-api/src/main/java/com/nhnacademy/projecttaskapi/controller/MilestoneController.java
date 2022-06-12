@@ -38,7 +38,7 @@ public class MilestoneController {
                 .body(milestoneService.createMilestone(request));
     }
 
-    @PutMapping("/modify")
+    @PutMapping("/update")
     public ResponseEntity<Milestone> putMilestone(@RequestBody MilestoneModifyRequest request) {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -46,7 +46,8 @@ public class MilestoneController {
     }
 
     @DeleteMapping("/delete/{serialNumber}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteMilestone(@PathVariable Long serialNumber) {
-        milestoneService.deleteMilestone(serialNumber);
+        milestoneService.removeMilestone(serialNumber);
     }
 }

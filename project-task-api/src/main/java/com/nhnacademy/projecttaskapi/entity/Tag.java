@@ -19,7 +19,7 @@ public class Tag {
     @Column(name = "tag_serial_number")
     private Long serialNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "project_serial_number")
     private Project project;
 

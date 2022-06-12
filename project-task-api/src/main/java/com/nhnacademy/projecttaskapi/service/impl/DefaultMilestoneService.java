@@ -36,7 +36,7 @@ public class DefaultMilestoneService implements MilestoneService {
     }
 
     @Override
-    public void deleteMilestone(Long serialNumber) {
+    public void removeMilestone(Long serialNumber) {
         milestoneRepository.deleteById(serialNumber);
     }
 

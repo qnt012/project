@@ -154,7 +154,7 @@ public class ProjectAdaptor implements ProjectRepository {
         MilestoneModifyRequest body = new MilestoneModifyRequest(serialNumber, name);
 
         RequestEntity<MilestoneModifyRequest> request = RequestEntity
-            .put("http://localhost:7070/milestones/modify")
+            .put("http://localhost:7070/milestones/update")
             .accept(MediaType.APPLICATION_JSON)
             .body(body);
 
