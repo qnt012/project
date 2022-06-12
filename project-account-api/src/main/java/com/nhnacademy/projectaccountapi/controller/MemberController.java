@@ -1,7 +1,6 @@
 package com.nhnacademy.projectaccountapi.controller;
 
 import com.nhnacademy.projectaccountapi.domain.request.MemberCreateRequest;
-import com.nhnacademy.projectaccountapi.domain.request.MemberLoginRequest;
 import com.nhnacademy.projectaccountapi.entity.Member;
 import com.nhnacademy.projectaccountapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping
-    private ResponseEntity<List<Member>> getMembers() {
+    public ResponseEntity<List<Member>> getMembers() {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(memberService.getMembers());

@@ -16,7 +16,7 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
 
-    @GetMapping("/{projectSerialNumber}")
+    @GetMapping("/list/{projectSerialNumber}")
     public ResponseEntity<List<TaskDto>> getTasks(@PathVariable Long projectSerialNumber) {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)

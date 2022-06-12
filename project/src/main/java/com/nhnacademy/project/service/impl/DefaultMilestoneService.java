@@ -14,7 +14,27 @@ public class DefaultMilestoneService implements MilestoneService {
 
 
     @Override
+    public Milestone getMilestone(Long serialNumber) {
+        return projectRepository.findMilestone(serialNumber);
+    }
+
+    @Override
     public List<Milestone> getMilestones(Long projectSerialNumber) {
         return projectRepository.findAllMilestones(projectSerialNumber);
+    }
+
+    @Override
+    public void createMilestone(Long projectSerialNumber, String name) {
+        projectRepository.insertMilestone(projectSerialNumber, name);
+    }
+
+    @Override
+    public void modifyMilestone(Long serialNumber, String name) {
+        projectRepository.updateMilestone(serialNumber, name);
+    }
+
+    @Override
+    public void deleteMilestone(Long serialNumber) {
+        projectRepository.deleteMilestone(serialNumber);
     }
 }

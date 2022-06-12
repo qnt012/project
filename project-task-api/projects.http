@@ -1,4 +1,4 @@
-GET http://localhost:7070/milestones/1
+GET http://localhost:7070/milestones/list/1
 Accept: application/json
 
 ###

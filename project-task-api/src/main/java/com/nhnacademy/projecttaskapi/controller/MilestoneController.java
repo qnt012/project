@@ -17,7 +17,14 @@ import org.springframework.web.bind.annotation.*;
 public class MilestoneController {
     private final MilestoneService milestoneService;
 
-    @GetMapping("/{projectSerialNumber}")
+    @GetMapping("/{serialNumber}")
+    public ResponseEntity<Milestone> getMilestone(@PathVariable Long serialNumber) {
+        return ResponseEntity.status(HttpStatus.OK)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(milestoneService.getMilestone(serialNumber));
+    }
+
+    @GetMapping("/list/{projectSerialNumber}")
     public ResponseEntity<List<Milestone>> getMilestones(@PathVariable Long projectSerialNumber) {
         return ResponseEntity.status(HttpStatus.OK)
             .contentType(MediaType.APPLICATION_JSON)

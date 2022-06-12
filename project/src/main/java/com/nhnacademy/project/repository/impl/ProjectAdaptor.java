@@ -2,6 +2,8 @@ package com.nhnacademy.project.repository.impl;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
 import com.nhnacademy.project.domain.dto.TaskDto;
+import com.nhnacademy.project.domain.request.project.MilestoneCreateRequest;
+import com.nhnacademy.project.domain.request.project.MilestoneModifyRequest;
 import com.nhnacademy.project.domain.request.project.ProjectCreateRequest;
 import com.nhnacademy.project.domain.request.project.ProjectMemberCreateRequest;
 import com.nhnacademy.project.entity.Milestone;
@@ -99,12 +101,21 @@ public class ProjectAdaptor implements ProjectRepository {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
         ResponseEntity<List<TaskDto>> exchange = restTemplate.exchange(
-                "http://localhost:7070/tasks/" + projectSerialNumber,
+                "http://localhost:7070/tasks/list/" + projectSerialNumber,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<>() {
                 });
         return exchange.getBody();
+    }
+
+    @Override
+    public Milestone findMilestone(Long serialNumber) {
+        return restTemplate.exchange(
+            "http://localhost:7070/milestones/" + serialNumber,
+            HttpMethod.GET,
+            null,
+            Milestone.class).getBody();
     }
 
     @Override
@@ -115,11 +126,50 @@ public class ProjectAdaptor implements ProjectRepository {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
         ResponseEntity<List<Milestone>> exchange = restTemplate.exchange(
-            "http://localhost:7070/milestones/" + projectSerialNumber,
+            "http://localhost:7070/milestones/list/" + projectSerialNumber,
             HttpMethod.GET,
             requestEntity,
             new ParameterizedTypeReference<>() {
             });
         return exchange.getBody();
+    }
+
+    @Override
+    public void insertMilestone(Long projectSerialNumber, String name) {
+        MilestoneCreateRequest body = new MilestoneCreateRequest(projectSerialNumber, name);
+
+        RequestEntity<MilestoneCreateRequest> request = RequestEntity
+            .post("http://localhost:7070/milestones/insert")
+            .accept(MediaType.APPLICATION_JSON)
+            .body(body);
+
+        restTemplate.exchange(
+            request,
+            Void.class
+        );
+    }
+
+    @Override
+    public void updateMilestone(Long serialNumber, String name) {
+        MilestoneModifyRequest body = new MilestoneModifyRequest(serialNumber, name);
+
+        RequestEntity<MilestoneModifyRequest> request = RequestEntity
+            .put("http://localhost:7070/milestones/modify")
+            .accept(MediaType.APPLICATION_JSON)
+            .body(body);
+
+        restTemplate.exchange(
+            request,
+            Void.class
+        );
+    }
+
+    @Override
+    public void deleteMilestone(Long serialNumber) {
+        restTemplate.exchange(
+            "http://localhost:7070/milestones/delete/" + serialNumber,
+            HttpMethod.DELETE,
+            null,
+            Void.class);
     }
 }

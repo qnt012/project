@@ -12,6 +12,7 @@ import com.nhnacademy.projecttaskapi.service.MilestoneService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class DefaultMilestoneService implements MilestoneService {
     }
 
     @Override
+    @Transactional
     public Milestone modifyMilestone(MilestoneModifyRequest request) {
         Milestone milestone = milestoneRepository.findById(request.getSerialNumber()).orElseThrow(MilestoneNotFound::new);
         milestone.setName(request.getName());
@@ -41,5 +43,10 @@ public class DefaultMilestoneService implements MilestoneService {
     @Override
     public List<Milestone> getMilestones(Long projectSerialNumber) {
         return milestoneRepository.findAllByProjectSerialNumber(projectSerialNumber);
+    }
+
+    @Override
+    public Milestone getMilestone(Long serialNumber) {
+        return milestoneRepository.findById(serialNumber).orElseThrow(MilestoneNotFound::new);
     }
 }

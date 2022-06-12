@@ -16,10 +16,10 @@
     <tr th:each="milestone : ${milestones}">
         <td th:text="${milestone.serialNumber}"></td>
         <td th:text="${milestone.name}"></td>
-        <td><a>수정</a></td>
-        <td><a>삭제</a></td>
+        <td><a th:href="@{|/milestones/${projectSerialNumber}/modify/${milestone.serialNumber}|}">수정</a></td>
+        <td><a th:href="@{|/milestones/${projectSerialNumber}/delete/${milestone.serialNumber}|}">삭제</a></td>
     </tr>
 </table>
-<a th:href="@{|milestones/projectSerialNumber/create|}"></a>
+<a th:href="@{|/milestones/${projectSerialNumber}/create|}">등록</a>
 </body>
 </html>

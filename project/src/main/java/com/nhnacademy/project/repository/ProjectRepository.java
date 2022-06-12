@@ -14,5 +14,10 @@ public interface ProjectRepository {
     Project findById(Long serialNumber);
     void insertProjectMember(Long serialNumber, String memberId);
     List<TaskDto> findTasks(Long projectSerialNumber);
+    Milestone findMilestone(Long serialNumber);
     List<Milestone> findAllMilestones(Long projectSerialNumber);
+    void insertMilestone(Long projectSerialNumber, String name);
+    void updateMilestone(Long serialNumber, String name);
+
+    void deleteMilestone(Long serialNumber);
 }

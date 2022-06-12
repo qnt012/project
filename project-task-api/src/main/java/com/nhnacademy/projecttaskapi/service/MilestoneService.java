@@ -11,4 +11,6 @@ public interface MilestoneService {
     void deleteMilestone(Long serialNumber);
 
     List<Milestone> getMilestones(Long projectSerialNumber);
+
+    Milestone getMilestone(Long serialNumber);
 }
