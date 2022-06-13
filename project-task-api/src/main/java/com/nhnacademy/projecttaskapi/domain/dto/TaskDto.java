@@ -1,6 +1,5 @@
 package com.nhnacademy.projecttaskapi.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

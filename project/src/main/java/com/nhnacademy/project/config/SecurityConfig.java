@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/tasks/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
             .antMatchers(HttpMethod.GET, "/milestones/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
             .antMatchers(HttpMethod.GET, "/tags/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+            .antMatchers(HttpMethod.GET, "/comments/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
             .anyRequest().permitAll()
             .and()
                 .formLogin()
