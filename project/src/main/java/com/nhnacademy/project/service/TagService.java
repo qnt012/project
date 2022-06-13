@@ -1,13 +1,13 @@
 package com.nhnacademy.project.service;
 
 
-import com.nhnacademy.project.entity.Tag;
+import com.nhnacademy.project.domain.dto.TagDto;
 
 import java.util.List;
 
 public interface TagService {
-    Tag getTag(Long serialNumber);
-    List<Tag> getTags(Long projectSerialNumber);
+    TagDto getTag(Long serialNumber);
+    List<TagDto> getTags(Long projectSerialNumber);
     void createTag(Long projectSerialNumber, String name);
     void modifyTag(Long serialNumber, String name);
     void deleteTag(Long serialNumber);

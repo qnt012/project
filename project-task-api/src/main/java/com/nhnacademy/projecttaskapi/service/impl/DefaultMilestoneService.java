@@ -1,5 +1,6 @@
 package com.nhnacademy.projecttaskapi.service.impl;
 
+import com.nhnacademy.projecttaskapi.domain.dto.MilestoneDto;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Milestone;
@@ -41,12 +42,12 @@ public class DefaultMilestoneService implements MilestoneService {
     }
 
     @Override
-    public List<Milestone> getMilestones(Long projectSerialNumber) {
+    public List<MilestoneDto> getMilestones(Long projectSerialNumber) {
         return milestoneRepository.findAllByProjectSerialNumber(projectSerialNumber);
     }
 
     @Override
-    public Milestone getMilestone(Long serialNumber) {
-        return milestoneRepository.findById(serialNumber).orElseThrow(MilestoneNotFound::new);
+    public MilestoneDto getMilestone(Long serialNumber) {
+        return milestoneRepository.findBySerialNumber(serialNumber).orElseThrow(MilestoneNotFound::new);
     }
 }

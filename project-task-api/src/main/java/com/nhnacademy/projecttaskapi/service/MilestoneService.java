@@ -1,5 +1,6 @@
 package com.nhnacademy.projecttaskapi.service;
 
+import com.nhnacademy.projecttaskapi.domain.dto.MilestoneDto;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Milestone;
@@ -10,7 +11,7 @@ public interface MilestoneService {
     Milestone modifyMilestone(MilestoneModifyRequest request);
     void removeMilestone(Long serialNumber);
 
-    List<Milestone> getMilestones(Long projectSerialNumber);
+    List<MilestoneDto> getMilestones(Long projectSerialNumber);
 
-    Milestone getMilestone(Long serialNumber);
+    MilestoneDto getMilestone(Long serialNumber);
 }

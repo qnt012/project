@@ -1,12 +1,8 @@
 package com.nhnacademy.project.repository.impl;
 
-import com.nhnacademy.project.domain.dto.ProjectMemberDto;
-import com.nhnacademy.project.domain.dto.TaskDto;
-import com.nhnacademy.project.domain.dto.TaskTagDto;
+import com.nhnacademy.project.domain.dto.*;
 import com.nhnacademy.project.domain.request.project.*;
-import com.nhnacademy.project.entity.Milestone;
 import com.nhnacademy.project.entity.Project;
-import com.nhnacademy.project.entity.Tag;
 import com.nhnacademy.project.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
@@ -109,22 +105,22 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public Milestone findMilestone(Long serialNumber) {
+    public MilestoneDto findMilestone(Long serialNumber) {
         return restTemplate.exchange(
             "http://localhost:7070/milestones/" + serialNumber,
             HttpMethod.GET,
             null,
-            Milestone.class).getBody();
+                MilestoneDto.class).getBody();
     }
 
     @Override
-    public List<Milestone> findAllMilestones(Long projectSerialNumber) {
+    public List<MilestoneDto> findAllMilestones(Long projectSerialNumber) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<Milestone>> exchange = restTemplate.exchange(
+        ResponseEntity<List<MilestoneDto>> exchange = restTemplate.exchange(
             "http://localhost:7070/milestones/list/" + projectSerialNumber,
             HttpMethod.GET,
             requestEntity,
@@ -173,22 +169,22 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public Tag findTag(Long serialNumber) {
+    public TagDto findTag(Long serialNumber) {
         return restTemplate.exchange(
                 "http://localhost:7070/tags/" + serialNumber,
                 HttpMethod.GET,
                 null,
-                Tag.class).getBody();
+                TagDto.class).getBody();
     }
 
     @Override
-    public List<Tag> findAllTags(Long projectSerialNumber) {
+    public List<TagDto> findAllTags(Long projectSerialNumber) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<Tag>> exchange = restTemplate.exchange(
+        ResponseEntity<List<TagDto>> exchange = restTemplate.exchange(
                 "http://localhost:7070/tags/list/" + projectSerialNumber,
                 HttpMethod.GET,
                 requestEntity,

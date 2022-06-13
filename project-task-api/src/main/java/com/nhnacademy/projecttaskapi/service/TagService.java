@@ -1,5 +1,6 @@
 package com.nhnacademy.projecttaskapi.service;
 
+import com.nhnacademy.projecttaskapi.domain.dto.TagDto;
 import com.nhnacademy.projecttaskapi.domain.request.TagCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.TagModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Tag;
@@ -13,7 +14,7 @@ public interface TagService {
 
     void removeTag(Long serialNumber);
 
-    List<Tag> getTags(Long projectSerialNumber);
+    List<TagDto> getTags(Long projectSerialNumber);
 
-    Tag getTag(Long serialNumber);
+    TagDto getTag(Long serialNumber);
 }

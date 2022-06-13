@@ -1,5 +1,6 @@
 package com.nhnacademy.projecttaskapi.service.impl;
 
+import com.nhnacademy.projecttaskapi.domain.dto.TagDto;
 import com.nhnacademy.projecttaskapi.domain.request.TagCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.TagModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Project;
@@ -42,12 +43,12 @@ public class DefaultTagService implements TagService {
     }
 
     @Override
-    public List<Tag> getTags(Long projectSerialNumber) {
+    public List<TagDto> getTags(Long projectSerialNumber) {
         return tagRepository.findAllByProjectSerialNumber(projectSerialNumber);
     }
 
     @Override
-    public Tag getTag(Long serialNumber) {
-        return tagRepository.findById(serialNumber).orElseThrow(TagNotFoundException::new);
+    public TagDto getTag(Long serialNumber) {
+        return tagRepository.findBySerialNumber(serialNumber).orElseThrow(TagNotFoundException::new);
     }
 }

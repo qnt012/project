@@ -1,6 +1,6 @@
 package com.nhnacademy.project.service.impl;
 
-import com.nhnacademy.project.entity.Tag;
+import com.nhnacademy.project.domain.dto.TagDto;
 import com.nhnacademy.project.repository.ProjectRepository;
 import com.nhnacademy.project.service.TagService;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +15,12 @@ public class DefaultTagService implements TagService {
 
 
     @Override
-    public Tag getTag(Long serialNumber) {
+    public TagDto getTag(Long serialNumber) {
         return projectRepository.findTag(serialNumber);
     }
 
     @Override
-    public List<Tag> getTags(Long projectSerialNumber) {
+    public List<TagDto> getTags(Long projectSerialNumber) {
         return projectRepository.findAllTags(projectSerialNumber);
     }
 

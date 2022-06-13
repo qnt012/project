@@ -1,5 +1,6 @@
 package com.nhnacademy.projecttaskapi.controller;
 
+import com.nhnacademy.projecttaskapi.domain.dto.MilestoneDto;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Milestone;
@@ -18,14 +19,14 @@ public class MilestoneController {
     private final MilestoneService milestoneService;
 
     @GetMapping("/{serialNumber}")
-    public ResponseEntity<Milestone> getMilestone(@PathVariable Long serialNumber) {
+    public ResponseEntity<MilestoneDto> getMilestone(@PathVariable Long serialNumber) {
         return ResponseEntity.status(HttpStatus.OK)
             .contentType(MediaType.APPLICATION_JSON)
             .body(milestoneService.getMilestone(serialNumber));
     }
 
     @GetMapping("/list/{projectSerialNumber}")
-    public ResponseEntity<List<Milestone>> getMilestones(@PathVariable Long projectSerialNumber) {
+    public ResponseEntity<List<MilestoneDto>> getMilestones(@PathVariable Long projectSerialNumber) {
         return ResponseEntity.status(HttpStatus.OK)
             .contentType(MediaType.APPLICATION_JSON)
             .body(milestoneService.getMilestones(projectSerialNumber));
