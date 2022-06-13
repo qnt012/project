@@ -17,4 +17,6 @@ public interface TaskService {
     Task updateTask(TaskModifyRequest request);
 
     void deleteTask(Long serialNumber);
+
+    void saveTaskTagsByTagSerialNumbers(List<Long> tagSerialNumbers, Task task);
 }

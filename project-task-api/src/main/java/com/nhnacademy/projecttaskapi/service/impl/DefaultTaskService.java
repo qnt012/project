@@ -43,17 +43,7 @@ public class DefaultTaskService implements TaskService {
         ProjectMember projectMember = projectMemberRepository.findById(projectMemberPk).orElseThrow(ProjectMemberNotFoundException::new);
 
         Task task = taskRepository.save(new Task(null, milestone, projectMember, request.getTitle(), request.getContent()));
-
-        List<Long> tagSerialNumbers = request.getTagSerialNumbers();
-        if (Objects.isNull(tagSerialNumbers)) {
-            tagSerialNumbers = List.of();
-        }
-
-        for (Long tagSerialNumber : tagSerialNumbers) {
-            Tag tag = tagRepository.findById(tagSerialNumber).orElseThrow(TagNotFoundException::new);
-            TaskTag.Pk taskTagPk = new TaskTag.Pk(task.getSerialNumber(), tagSerialNumber);
-            taskTagRepository.save(new TaskTag(taskTagPk, task, tag));
-        }
+        saveTaskTagsByTagSerialNumbers(request.getTagSerialNumbers(), task);
 
         return task;
     }
@@ -77,8 +67,18 @@ public class DefaultTaskService implements TaskService {
         Task result = taskRepository.save(task);
 
         taskTagRepository.deleteAllByTaskSerialNumber(task.getSerialNumber());
+        saveTaskTagsByTagSerialNumbers(request.getTagSerialNumbers(), task);
 
-        List<Long> tagSerialNumbers = request.getTagSerialNumbers();
+        return result;
+    }
+
+    @Override
+    public void deleteTask(Long serialNumber) {
+        taskRepository.deleteById(serialNumber);
+    }
+
+    @Override
+    public void saveTaskTagsByTagSerialNumbers(List<Long> tagSerialNumbers, Task task) {
         if (Objects.isNull(tagSerialNumbers)) {
             tagSerialNumbers = List.of();
         }
@@ -88,12 +88,5 @@ public class DefaultTaskService implements TaskService {
             TaskTag.Pk taskTagPk = new TaskTag.Pk(task.getSerialNumber(), tagSerialNumber);
             taskTagRepository.save(new TaskTag(taskTagPk, task, tag));
         }
-
-        return result;
-    }
-
-    @Override
-    public void deleteTask(Long serialNumber) {
-        taskRepository.deleteById(serialNumber);
     }
 }
