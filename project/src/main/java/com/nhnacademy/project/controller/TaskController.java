@@ -86,4 +86,11 @@ public class TaskController {
         modelMap.put("taskTags", taskService.getTaskTags(taskSerialNumber));
         return "project/taskView";
     }
+
+    @GetMapping("{projectSerialNumber}/delete/{taskSerialNumber}")
+    public String getTaskDelete(@PathVariable Long projectSerialNumber,
+                                     @PathVariable Long taskSerialNumber) {
+        taskService.deleteTask(taskSerialNumber);
+        return "redirect:/tasks/" + projectSerialNumber;
+    }
 }

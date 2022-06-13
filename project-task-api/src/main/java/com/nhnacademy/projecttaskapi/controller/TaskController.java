@@ -57,4 +57,11 @@ public class TaskController {
             .contentType(MediaType.APPLICATION_JSON)
             .body(taskService.updateTask(request));
     }
+
+    @DeleteMapping("/delete/{serialNumber}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteTask(@PathVariable Long serialNumber) {
+        taskService.deleteTask(serialNumber);
+    }
+
 }

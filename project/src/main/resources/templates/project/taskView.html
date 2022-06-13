@@ -15,6 +15,7 @@
 </head>
 <body>
 <a th:href="@{|/tasks/${projectSerialNumber}/modify/${task.serialNumber}|}">수정</a><br/>
+<a th:href="@{|/tasks/${projectSerialNumber}/delete/${task.serialNumber}|}">삭제</a><br/>
 [업무번호] <span th:text="${task.serialNumber}"></span><br/>
 [등록자] <span th:text="${task.memberId}"></span><br/><br/>
 [업무제목] <span th:text="${task.title}"></span><br/><br/>

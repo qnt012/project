@@ -40,4 +40,9 @@ public class DefaultTaskService implements TaskService {
                            List<Long> tagSerialNumbers) {
         projectRepository.updateTask(taskSerialNumber, title, content, milestoneSerialNumber, tagSerialNumbers);
     }
+
+    @Override
+    public void deleteTask(Long taskSerialNumber) {
+        projectRepository.deleteTask(taskSerialNumber);
+    }
 }

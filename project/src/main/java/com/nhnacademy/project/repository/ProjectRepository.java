@@ -28,6 +28,7 @@ public interface ProjectRepository {
     void deleteTag(Long serialNumber);
     void insertTask(Long projectSerialNumber, String memberId, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers);
     void updateTask(Long taskSerialNumber, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers);
+    void deleteTask(Long taskSerialNumber);
     TaskDto findTask(Long serialNumber);
     List<TaskTagDto> findTaskTags(Long serialNumber);
 }

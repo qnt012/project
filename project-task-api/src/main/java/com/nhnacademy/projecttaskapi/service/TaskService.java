@@ -15,4 +15,6 @@ public interface TaskService {
     TaskDto getTask(Long serialNumber);
 
     Task updateTask(TaskModifyRequest request);
+
+    void deleteTask(Long serialNumber);
 }

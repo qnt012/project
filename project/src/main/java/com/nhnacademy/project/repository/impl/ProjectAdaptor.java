@@ -268,6 +268,15 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
+    public void deleteTask(Long taskSerialNumber) {
+        restTemplate.exchange(
+                "http://localhost:7070/tasks/delete/" + taskSerialNumber,
+                HttpMethod.DELETE,
+                null,
+                Void.class);
+    }
+
+    @Override
     public TaskDto findTask(Long serialNumber) {
         return restTemplate.exchange(
                 "http://localhost:7070/tasks/" + serialNumber,

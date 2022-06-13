@@ -91,4 +91,10 @@ public class DefaultTaskService implements TaskService {
 
         return result;
     }
+
+    @Override
+    public void deleteTask(Long serialNumber) {
+        taskRepository.deleteById(serialNumber);
+        taskTagRepository.deleteAllByTaskSerialNumber(serialNumber);
+    }
 }
