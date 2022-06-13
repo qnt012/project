@@ -19,11 +19,11 @@ public class Comment {
     @Column(name = "comment_serial_number")
     private Long serialNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "task_serial_number")
     private Task task;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns(value = {
             @JoinColumn(name = "member_id"),
             @JoinColumn(name = "project_serial_number")

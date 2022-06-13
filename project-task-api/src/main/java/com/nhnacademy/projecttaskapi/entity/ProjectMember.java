@@ -11,14 +11,13 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "project_members")
 public class ProjectMember {
     @EmbeddedId
     private Pk pk;
 
     @MapsId(value = "projectSerialNumber")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "project_serial_number")
     private Project project;
 
