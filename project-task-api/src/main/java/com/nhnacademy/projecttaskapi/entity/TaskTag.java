@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Table(name = "task_tags")
 public class TaskTag {
     @EmbeddedId
