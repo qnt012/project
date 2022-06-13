@@ -18,6 +18,15 @@ public class ProjectAdaptor implements ProjectRepository {
     private final RestTemplate restTemplate;
 
     @Override
+    public Project findById(Long serialNumber) {
+        return restTemplate.exchange(
+                "http://localhost:7070/projects/" + serialNumber,
+                HttpMethod.GET,
+                null,
+                Project.class).getBody();
+    }
+
+    @Override
     public List<Project> findAllByMemberId(String id) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -62,14 +71,7 @@ public class ProjectAdaptor implements ProjectRepository {
         return exchange.getBody();
     }
 
-    @Override
-    public Project findById(Long serialNumber) {
-         return restTemplate.exchange(
-                "http://localhost:7070/projects/" + serialNumber,
-                HttpMethod.GET,
-                null,
-                Project.class).getBody();
-    }
+
 
     @Override
     public void insertProjectMember(ProjectMemberCreateRequest requestBody) {
@@ -84,21 +86,6 @@ public class ProjectAdaptor implements ProjectRepository {
         );
     }
 
-    @Override
-    public List<TaskDto> findTasks(Long projectSerialNumber) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<TaskDto>> exchange = restTemplate.exchange(
-                "http://localhost:7070/tasks/list/" + projectSerialNumber,
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<>() {
-                });
-        return exchange.getBody();
-    }
 
     @Override
     public MilestoneDto findMilestone(Long serialNumber) {
@@ -221,6 +208,31 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
+    public TaskDto findTask(Long serialNumber) {
+        return restTemplate.exchange(
+                "http://localhost:7070/tasks/" + serialNumber,
+                HttpMethod.GET,
+                null,
+                TaskDto.class).getBody();
+    }
+
+    @Override
+    public List<TaskDto> findTasks(Long projectSerialNumber) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<TaskDto>> exchange = restTemplate.exchange(
+                "http://localhost:7070/tasks/list/" + projectSerialNumber,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        return exchange.getBody();
+    }
+
+    @Override
     public void insertTask(TaskCreateRequest requestBody) {
         RequestEntity<TaskCreateRequest> request = RequestEntity
                 .post("http://localhost:7070/tasks/insert")
@@ -256,15 +268,6 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public TaskDto findTask(Long serialNumber) {
-        return restTemplate.exchange(
-                "http://localhost:7070/tasks/" + serialNumber,
-                HttpMethod.GET,
-                null,
-                TaskDto.class).getBody();
-    }
-
-    @Override
     public List<TaskTagDto> findTaskTags(Long serialNumber) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -280,17 +283,14 @@ public class ProjectAdaptor implements ProjectRepository {
         return exchange.getBody();
     }
 
-    @Override
-    public void insertComment(CommentCreateRequest requestBody) {
-        RequestEntity<CommentCreateRequest> request = RequestEntity
-                .post("http://localhost:7070/comments/insert")
-                .accept(MediaType.APPLICATION_JSON)
-                .body(requestBody);
 
-        restTemplate.exchange(
-                request,
-                Void.class
-        );
+    @Override
+    public CommentDto findComment(Long serialNumber) {
+        return restTemplate.exchange(
+                "http://localhost:7070/comments/" + serialNumber,
+                HttpMethod.GET,
+                null,
+                CommentDto.class).getBody();
     }
 
     @Override
@@ -310,12 +310,16 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public CommentDto findComment(Long serialNumber) {
-        return restTemplate.exchange(
-                "http://localhost:7070/comments/" + serialNumber,
-                HttpMethod.GET,
-                null,
-                CommentDto.class).getBody();
+    public void insertComment(CommentCreateRequest requestBody) {
+        RequestEntity<CommentCreateRequest> request = RequestEntity
+                .post("http://localhost:7070/comments/insert")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(requestBody);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
     }
 
     @Override
