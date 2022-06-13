@@ -1,17 +1,19 @@
 package com.nhnacademy.projecttaskapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@JsonIgnoreProperties({"taskTags", "comments"})
 @Table(name = "tasks")
 public class Task {
     @Id
@@ -35,4 +37,18 @@ public class Task {
 
     @Column(name = "task_content")
     private String content;
+
+    @OneToMany(mappedBy = "task", cascade = {CascadeType.REMOVE})
+    private List<TaskTag> taskTags;
+
+    @OneToMany(mappedBy = "task", cascade = {CascadeType.REMOVE})
+    private List<Comment> comments;
+
+    public Task(Long serialNumber, Milestone milestone, ProjectMember projectMember, String title, String content) {
+        this.serialNumber = serialNumber;
+        this.milestone = milestone;
+        this.projectMember = projectMember;
+        this.title = title;
+        this.content = content;
+    }
 }
