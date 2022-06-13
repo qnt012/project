@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>taskModifyForm</title>
+</head>
+<body>
+<form method="post" th:action="@{|/tasks/${projectSerialNumber}/modify|}">
+    업무 제목: <input type="text" name="title" th:value="${task.title}"/><br/>
+    업무 내용: <br/><textarea rows="10" cols="50" name="content" th:text="${task.content}"></textarea><br/>
+    마일스톤
+    <select name="milestone">
+        <option value=""></option>
+        <option th:each="milestone : ${milestones}" th:value="${milestone.serialNumber}" th:text="${milestone.name}" th:selected="${milestone.name == task.milestoneName}">
+        </option>
+    </select><br/>
+    태그
+    <input type="checkbox" name="tags" th:each="tag : ${tags}" th:value="${tag.serialNumber}" th:text="${tag.name}" th:checked="${#lists.contains(taskTagNames, tag.name)}"/>
+    <br/><input type="submit"/>
+</form>
+</body>
+</html>

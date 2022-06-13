@@ -33,4 +33,11 @@ public class DefaultTaskService implements TaskService {
     public List<TaskTagDto> getTaskTags(Long serialNumber) {
         return projectRepository.findTaskTags(serialNumber);
     }
+
+    @Override
+    public void modifyTask(Long projectSerialNumber, Long taskSerialNumber, String name,
+                           String title, String content, Long milestoneSerialNumber,
+                           List<Long> tagSerialNumbers) {
+
+    }
 }

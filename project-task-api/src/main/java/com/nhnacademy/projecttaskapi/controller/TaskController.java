@@ -3,6 +3,7 @@ package com.nhnacademy.projecttaskapi.controller;
 import com.nhnacademy.projecttaskapi.domain.dto.TaskDto;
 import com.nhnacademy.projecttaskapi.domain.dto.TaskTagDto;
 import com.nhnacademy.projecttaskapi.domain.request.TaskCreateRequest;
+import com.nhnacademy.projecttaskapi.domain.request.TaskModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Task;
 import com.nhnacademy.projecttaskapi.service.TaskService;
 import com.nhnacademy.projecttaskapi.service.TaskTagService;
@@ -48,5 +49,12 @@ public class TaskController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(taskService.createTask(request));
 
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Task> putTask(@RequestBody TaskModifyRequest request) {
+        return ResponseEntity.status(HttpStatus.OK)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(taskService.updateTask(request));
     }
 }

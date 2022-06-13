@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface TaskTagRepository extends JpaRepository<TaskTag, TaskTag.Pk> {
     List<TaskTagDto> findAllByPkTaskSerialNumber(Long taskSerialNumber);
+    void deleteAllByTaskSerialNumber(Long taskSerialNumber);
 }
