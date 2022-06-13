@@ -4,7 +4,7 @@ import com.nhnacademy.projecttaskapi.domain.dto.TaskDto;
 import com.nhnacademy.projecttaskapi.domain.request.TaskCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.TaskModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.*;
-import com.nhnacademy.projecttaskapi.exception.MilestoneNotFound;
+import com.nhnacademy.projecttaskapi.exception.MilestoneNotFoundException;
 import com.nhnacademy.projecttaskapi.exception.ProjectMemberNotFoundException;
 import com.nhnacademy.projecttaskapi.exception.TagNotFoundException;
 import com.nhnacademy.projecttaskapi.exception.TaskNotFoundException;
@@ -36,7 +36,7 @@ public class DefaultTaskService implements TaskService {
     public Task createTask(TaskCreateRequest request) {
         Milestone milestone = null;
         if (!Objects.isNull(request.getMilestoneSerialNumber())) {
-            milestone = milestoneRepository.findById(request.getMilestoneSerialNumber()).orElseThrow(MilestoneNotFound::new);
+            milestone = milestoneRepository.findById(request.getMilestoneSerialNumber()).orElseThrow(MilestoneNotFoundException::new);
         }
 
         ProjectMember.Pk projectMemberPk = new ProjectMember.Pk(request.getMemberId(), request.getProjectSerialNumber());
@@ -70,7 +70,7 @@ public class DefaultTaskService implements TaskService {
 
         Milestone milestone = null;
         if (!Objects.isNull(request.getMilestoneSerialNumber())) {
-            milestone = milestoneRepository.findById(request.getMilestoneSerialNumber()).orElseThrow(MilestoneNotFound::new);
+            milestone = milestoneRepository.findById(request.getMilestoneSerialNumber()).orElseThrow(MilestoneNotFoundException::new);
         }
         task.setMilestone(milestone);
 

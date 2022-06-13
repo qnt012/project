@@ -5,7 +5,7 @@ import com.nhnacademy.projecttaskapi.domain.request.MilestoneCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Milestone;
 import com.nhnacademy.projecttaskapi.entity.Project;
-import com.nhnacademy.projecttaskapi.exception.MilestoneNotFound;
+import com.nhnacademy.projecttaskapi.exception.MilestoneNotFoundException;
 import com.nhnacademy.projecttaskapi.exception.ProjectNotFoundException;
 import com.nhnacademy.projecttaskapi.repository.MilestoneRepository;
 import com.nhnacademy.projecttaskapi.repository.ProjectRepository;
@@ -31,7 +31,7 @@ public class DefaultMilestoneService implements MilestoneService {
     @Override
     @Transactional
     public Milestone modifyMilestone(MilestoneModifyRequest request) {
-        Milestone milestone = milestoneRepository.findById(request.getSerialNumber()).orElseThrow(MilestoneNotFound::new);
+        Milestone milestone = milestoneRepository.findById(request.getSerialNumber()).orElseThrow(MilestoneNotFoundException::new);
         milestone.setName(request.getName());
         return milestoneRepository.save(milestone);
     }
@@ -48,6 +48,6 @@ public class DefaultMilestoneService implements MilestoneService {
 
     @Override
     public MilestoneDto getMilestone(Long serialNumber) {
-        return milestoneRepository.findBySerialNumber(serialNumber).orElseThrow(MilestoneNotFound::new);
+        return milestoneRepository.findBySerialNumber(serialNumber).orElseThrow(MilestoneNotFoundException::new);
     }
 }

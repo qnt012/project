@@ -6,8 +6,8 @@ POST http://localhost:7070/milestones/insert
 Content-Type: application/json
 
 {
-  "projectSerialNumber": 1,
-  "name": "공지"
+  "projectSerialNumber": 2,
+  "name": "마일스톤"
 }
 
 ###
@@ -63,3 +63,34 @@ Content-Type: application/json
 
 ###
 GET http://localhost:7070/tasks/tags/2
+
+###
+GET http://localhost:7070/comments/3
+Accept: application/json
+
+###
+GET http://localhost:7070/comments/list/2
+Accept: application/json
+
+###
+POST http://localhost:7070/comments/insert
+Content-Type: application/json
+
+{
+  "taskSerialNumber": 2,
+  "memberId": "user",
+  "projectSerialNumber": 1,
+  "content": "댓글 생성"
+}
+
+###
+PUT http://localhost:7070/comments/update
+Content-Type: application/json
+
+{
+  "serialNumber": 4,
+  "content": "댓글 수정"
+}
+
+###
+DELETE http://localhost:7070/comments/delete/2
