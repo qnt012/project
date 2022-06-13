@@ -27,6 +27,18 @@
 <div th:if="${!#lists.isEmpty(taskTags)}">
     [태그]
     <span class="underline" th:each="taskTag : ${taskTags}" th:text="${taskTag.tagName+''}"></span>
-</div>
+</div><br/>
+--댓글--
+<form method="post" th:action="@{|/comments/${projectSerialNumber}/${task.serialNumber}/create|}">
+    <textarea rows="3" cols="50" name="content"></textarea>
+    <input type="submit" value="댓글작성"/>
+</form><br/>
+<div th:each="comment: ${comments}">
+    <span th:text="${comment.projectMemberPkMemberId}"></span><br/>
+    <span th:text="${comment.content}"></span><br/>
+    <a th:href="@{|/comments/${projectSerialNumber}/${task.serialNumber}/modify/${comment.serialNumber}|}" th:if="${#strings.equals(comment.projectMemberPkMemberId, #authentication.name)}" >댓글 수정</a>
+    <a th:href="@{|/comments/${projectSerialNumber}/${task.serialNumber}/delete/${comment.serialNumber}|}" th:if="${#strings.equals(comment.projectMemberPkMemberId, #authentication.name)}" >댓글 삭제</a>
+    <br/>
+</div><br/>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.nhnacademy.project.service.impl;
 
 import com.nhnacademy.project.domain.dto.MilestoneDto;
+import com.nhnacademy.project.domain.request.project.MilestoneCreateRequest;
+import com.nhnacademy.project.domain.request.project.MilestoneModifyRequest;
 import com.nhnacademy.project.repository.ProjectRepository;
 import com.nhnacademy.project.service.MilestoneService;
 import java.util.List;
@@ -25,12 +27,14 @@ public class DefaultMilestoneService implements MilestoneService {
 
     @Override
     public void createMilestone(Long projectSerialNumber, String name) {
-        projectRepository.insertMilestone(projectSerialNumber, name);
+        MilestoneCreateRequest requestBody = new MilestoneCreateRequest(projectSerialNumber, name);
+        projectRepository.insertMilestone(requestBody);
     }
 
     @Override
     public void modifyMilestone(Long serialNumber, String name) {
-        projectRepository.updateMilestone(serialNumber, name);
+        MilestoneModifyRequest requestBody = new MilestoneModifyRequest(serialNumber, name);
+        projectRepository.updateMilestone(requestBody);
     }
 
     @Override

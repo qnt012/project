@@ -1,6 +1,8 @@
 package com.nhnacademy.project.service.impl;
 
 import com.nhnacademy.project.domain.dto.ProjectMemberDto;
+import com.nhnacademy.project.domain.request.project.ProjectCreateRequest;
+import com.nhnacademy.project.domain.request.project.ProjectMemberCreateRequest;
 import com.nhnacademy.project.entity.Member;
 import com.nhnacademy.project.entity.Project;
 import com.nhnacademy.project.repository.MemberRepository;
@@ -25,7 +27,8 @@ public class DefaultProjectService implements ProjectService {
 
     @Override
     public void createProject(String adminId, String name) {
-        projectRepository.insert(adminId, name);
+        ProjectCreateRequest requestBody = new ProjectCreateRequest(adminId, name);
+        projectRepository.insert(requestBody);
     }
 
     @Override
@@ -46,6 +49,7 @@ public class DefaultProjectService implements ProjectService {
 
     @Override
     public void addProjectMember(Long serialNumber, String memberId) {
-        projectRepository.insertProjectMember(serialNumber, memberId);
+        ProjectMemberCreateRequest requestBody = new ProjectMemberCreateRequest(serialNumber, memberId);
+        projectRepository.insertProjectMember(requestBody);
     }
 }

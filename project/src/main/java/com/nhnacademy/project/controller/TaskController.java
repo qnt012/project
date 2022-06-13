@@ -1,6 +1,7 @@
 package com.nhnacademy.project.controller;
 
 import com.nhnacademy.project.domain.dto.TaskTagDto;
+import com.nhnacademy.project.service.CommentService;
 import com.nhnacademy.project.service.MilestoneService;
 import com.nhnacademy.project.service.TagService;
 import com.nhnacademy.project.service.TaskService;
@@ -20,6 +21,7 @@ public class TaskController {
     private final TaskService taskService;
     private final MilestoneService milestoneService;
     private final TagService tagService;
+    private final CommentService commentService;
 
     @GetMapping("/{projectSerialNumber}")
     public String getTasks(@PathVariable Long projectSerialNumber,
@@ -84,6 +86,7 @@ public class TaskController {
         modelMap.put("projectSerialNumber", projectSerialNumber);
         modelMap.put("task", taskService.getTask(taskSerialNumber));
         modelMap.put("taskTags", taskService.getTaskTags(taskSerialNumber));
+        modelMap.put("comments", commentService.getComments(taskSerialNumber));
         return "project/taskView";
     }
 

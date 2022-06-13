@@ -1,6 +1,8 @@
 package com.nhnacademy.project.service.impl;
 
 import com.nhnacademy.project.domain.dto.TagDto;
+import com.nhnacademy.project.domain.request.project.TagCreateRequest;
+import com.nhnacademy.project.domain.request.project.TagModifyRequest;
 import com.nhnacademy.project.repository.ProjectRepository;
 import com.nhnacademy.project.service.TagService;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +28,14 @@ public class DefaultTagService implements TagService {
 
     @Override
     public void createTag(Long projectSerialNumber, String name) {
-        projectRepository.insertTag(projectSerialNumber, name);
+        TagCreateRequest requestBody = new TagCreateRequest(projectSerialNumber, name);
+        projectRepository.insertTag(requestBody);
     }
 
     @Override
     public void modifyTag(Long serialNumber, String name) {
-        projectRepository.updateTag(serialNumber, name);
+        TagModifyRequest requestBody = new TagModifyRequest(serialNumber, name);
+        projectRepository.updateTag(requestBody);
     }
 
     @Override

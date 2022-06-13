@@ -2,6 +2,8 @@ package com.nhnacademy.project.service.impl;
 
 import com.nhnacademy.project.domain.dto.TaskDto;
 import com.nhnacademy.project.domain.dto.TaskTagDto;
+import com.nhnacademy.project.domain.request.project.TaskCreateRequest;
+import com.nhnacademy.project.domain.request.project.TaskModifyRequest;
 import com.nhnacademy.project.repository.ProjectRepository;
 import com.nhnacademy.project.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,8 @@ public class DefaultTaskService implements TaskService {
 
     @Override
     public void createTask(Long projectSerialNumber, String memberId, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers) {
-        projectRepository.insertTask(projectSerialNumber, memberId, title, content, milestoneSerialNumber, tagSerialNumbers);
+        TaskCreateRequest requestBody = new TaskCreateRequest(projectSerialNumber, memberId, title, content, milestoneSerialNumber, tagSerialNumbers);
+        projectRepository.insertTask(requestBody);
     }
 
     @Override
@@ -38,7 +41,8 @@ public class DefaultTaskService implements TaskService {
     public void modifyTask(Long taskSerialNumber,
                            String title, String content, Long milestoneSerialNumber,
                            List<Long> tagSerialNumbers) {
-        projectRepository.updateTask(taskSerialNumber, title, content, milestoneSerialNumber, tagSerialNumbers);
+        TaskModifyRequest requestBody = new TaskModifyRequest(taskSerialNumber, title, content, milestoneSerialNumber, tagSerialNumbers);
+        projectRepository.updateTask(requestBody);
     }
 
     @Override

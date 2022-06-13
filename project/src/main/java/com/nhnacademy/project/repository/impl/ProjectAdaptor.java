@@ -34,13 +34,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void insert(String adminId, String name) {
-        ProjectCreateRequest body = new ProjectCreateRequest(adminId, name);
-
+    public void insert(ProjectCreateRequest requestBody) {
         RequestEntity<ProjectCreateRequest> request = RequestEntity
                 .post("http://localhost:7070/projects/insert")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(body);
+                .body(requestBody);
 
         restTemplate.exchange(
                 request,
@@ -74,13 +72,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void insertProjectMember(Long serialNumber, String memberId) {
-        ProjectMemberCreateRequest body = new ProjectMemberCreateRequest(serialNumber, memberId);
-
+    public void insertProjectMember(ProjectMemberCreateRequest requestBody) {
         RequestEntity<ProjectMemberCreateRequest> request = RequestEntity
                 .post("http://localhost:7070/projects/members/insert")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(body);
+                .body(requestBody);
 
         restTemplate.exchange(
                 request,
@@ -130,13 +126,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void insertMilestone(Long projectSerialNumber, String name) {
-        MilestoneCreateRequest body = new MilestoneCreateRequest(projectSerialNumber, name);
-
+    public void insertMilestone(MilestoneCreateRequest requestBody) {
         RequestEntity<MilestoneCreateRequest> request = RequestEntity
             .post("http://localhost:7070/milestones/insert")
             .accept(MediaType.APPLICATION_JSON)
-            .body(body);
+            .body(requestBody);
 
         restTemplate.exchange(
             request,
@@ -145,13 +139,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void updateMilestone(Long serialNumber, String name) {
-        MilestoneModifyRequest body = new MilestoneModifyRequest(serialNumber, name);
-
+    public void updateMilestone(MilestoneModifyRequest requestBody) {
         RequestEntity<MilestoneModifyRequest> request = RequestEntity
             .put("http://localhost:7070/milestones/update")
             .accept(MediaType.APPLICATION_JSON)
-            .body(body);
+            .body(requestBody);
 
         restTemplate.exchange(
             request,
@@ -194,13 +186,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void insertTag(Long projectSerialNumber, String name) {
-        TagCreateRequest body = new TagCreateRequest(projectSerialNumber, name);
-
+    public void insertTag(TagCreateRequest requestBody) {
         RequestEntity<TagCreateRequest> request = RequestEntity
                 .post("http://localhost:7070/tags/insert")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(body);
+                .body(requestBody);
 
         restTemplate.exchange(
                 request,
@@ -209,13 +199,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void updateTag(Long serialNumber, String name) {
-        TagModifyRequest body = new TagModifyRequest(serialNumber, name);
-
+    public void updateTag(TagModifyRequest requestBody) {
         RequestEntity<TagModifyRequest> request = RequestEntity
                 .put("http://localhost:7070/tags/update")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(body);
+                .body(requestBody);
 
         restTemplate.exchange(
                 request,
@@ -233,13 +221,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void insertTask(Long projectSerialNumber, String memberId, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers) {
-        TaskCreateRequest body = new TaskCreateRequest(projectSerialNumber, memberId, title, content, milestoneSerialNumber, tagSerialNumbers);
-
+    public void insertTask(TaskCreateRequest requestBody) {
         RequestEntity<TaskCreateRequest> request = RequestEntity
                 .post("http://localhost:7070/tasks/insert")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(body);
+                .body(requestBody);
 
         restTemplate.exchange(
                 request,
@@ -248,14 +234,11 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
-    public void updateTask(Long taskSerialNumber,
-                           String title, String content, Long milestoneSerialNumber,
-                           List<Long> tagSerialNumbers) {
-        TaskModifyRequest body = new TaskModifyRequest(taskSerialNumber, title, content, milestoneSerialNumber, tagSerialNumbers);
+    public void updateTask(TaskModifyRequest requestBody) {
         RequestEntity<TaskModifyRequest> request = RequestEntity
             .put("http://localhost:7070/tasks/update")
             .accept(MediaType.APPLICATION_JSON)
-            .body(body);
+            .body(requestBody);
 
         restTemplate.exchange(
             request,
@@ -295,5 +278,65 @@ public class ProjectAdaptor implements ProjectRepository {
                 new ParameterizedTypeReference<>() {
                 });
         return exchange.getBody();
+    }
+
+    @Override
+    public void insertComment(CommentCreateRequest requestBody) {
+        RequestEntity<CommentCreateRequest> request = RequestEntity
+                .post("http://localhost:7070/comments/insert")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(requestBody);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
+    }
+
+    @Override
+    public List<CommentDto> findAllComments(Long taskSerialNumber) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<List<CommentDto>> exchange = restTemplate.exchange(
+                "http://localhost:7070/comments/list/" + taskSerialNumber,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {
+                });
+        return exchange.getBody();
+    }
+
+    @Override
+    public CommentDto findComment(Long serialNumber) {
+        return restTemplate.exchange(
+                "http://localhost:7070/comments/" + serialNumber,
+                HttpMethod.GET,
+                null,
+                CommentDto.class).getBody();
+    }
+
+    @Override
+    public void updateComment(CommentModifyRequest requestBody) {
+        RequestEntity<CommentModifyRequest> request = RequestEntity
+                .put("http://localhost:7070/comments/update")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(requestBody);
+
+        restTemplate.exchange(
+                request,
+                Void.class
+        );
+    }
+
+    @Override
+    public void deleteComment(Long serialNumber) {
+        restTemplate.exchange(
+                "http://localhost:7070/comments/delete/" + serialNumber,
+                HttpMethod.DELETE,
+                null,
+                Void.class);
     }
 }
