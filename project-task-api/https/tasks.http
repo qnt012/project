@@ -1,0 +1,38 @@
+###
+GET http://localhost:7070/tasks/1
+
+###
+GET http://localhost:7070/tasks/list/1
+
+###
+POST http://localhost:7070/tasks/insert
+Content-Type: application/json
+
+{
+  "projectSerialNumber": 1,
+  "memberId": "userTest",
+  "title": "title",
+  "content": "content",
+  "milestoneSerialNumber": 1,
+  "tagSerialNumbers": null
+}
+
+###
+PUT http://localhost:7070/tasks/update
+Content-Type: application/json
+
+{
+  "taskSerialNumber": 1,
+  "title": "title 수정",
+  "content": "content 수정",
+  "milestoneSerialNumber": null,
+  "tagSerialNumbers": [
+    1
+  ]
+}
+
+###
+DELETE http://localhost:7070/tasks/delete/1
+
+###
+GET http://localhost:7070/tasks/tags/1

@@ -2,7 +2,27 @@
 GET http://localhost:9090/members
 
 ###
-GET http://localhost:9090/members/user
+POST http://localhost:9090/members/insert
+Content-Type: application/json
+
+{
+  "id": "userTest",
+  "password": "encryptedPassword",
+  "email": "test@nhnacademy.com"
+}
 
 ###
-GET http://localhost:9090/members/email/qnt012@naver.com
+GET http://localhost:9090/members/userTest
+
+###
+GET http://localhost:9090/members/email/test@nhnacademy.com
+
+###
+GET http://localhost:9090/members/active/userTest
+
+###
+GET http://localhost:9090/members/dormant/userTest
+
+###
+GET http://localhost:9090/members/withdraw/userTest
+

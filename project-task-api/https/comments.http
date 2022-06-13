@@ -1,0 +1,30 @@
+###
+GET http://localhost:7070/comments/1
+Accept: application/json
+
+###
+GET http://localhost:7070/comments/list/1
+
+###
+POST http://localhost:7070/comments/insert
+Content-Type: application/json
+
+{
+  "taskSerialNumber": 1,
+  "memberId": "userTest",
+  "projectSerialNumber": 1,
+  "content": "댓글 생성"
+}
+
+###
+PUT http://localhost:7070/comments/update
+Content-Type: application/json
+
+{
+  "serialNumber": 1,
+  "content": "댓글 수정"
+}
+
+###
+DELETE http://localhost:7070/comments/delete/1
+

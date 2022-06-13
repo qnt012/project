@@ -1,4 +1,4 @@
-package com.nhnacademy.projectaccountapi.repository;
+package com.nhnacademy.projectaccountapi.exception;
 
 import org.springframework.validation.BindingResult;
 

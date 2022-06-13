@@ -2,7 +2,7 @@ package com.nhnacademy.projectaccountapi.controller;
 
 import com.nhnacademy.projectaccountapi.domain.request.MemberCreateRequest;
 import com.nhnacademy.projectaccountapi.entity.Member;
-import com.nhnacademy.projectaccountapi.repository.ValidationFailedException;
+import com.nhnacademy.projectaccountapi.exception.ValidationFailedException;
 import com.nhnacademy.projectaccountapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

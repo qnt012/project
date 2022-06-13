@@ -1,0 +1,28 @@
+###
+GET http://localhost:7070/projects/1
+Accept: application/json
+
+###
+GET http://localhost:7070/projects/list/userTest
+Accept: application/json
+
+###
+POST http://localhost:7070/projects/insert
+Content-Type: application/json
+
+{
+  "adminId": "userTest",
+  "name": "project1"
+}
+
+###
+GET http://localhost:7070/projects/1/members
+
+###
+POST http://localhost:7070/projects/members/insert
+Content-Type: application/json
+
+{
+  "projectSerialNumber": 1,
+  "memberId": "userTest"
+}
