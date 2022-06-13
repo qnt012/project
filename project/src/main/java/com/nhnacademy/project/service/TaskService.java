@@ -14,5 +14,5 @@ public interface TaskService {
 
     List<TaskTagDto> getTaskTags(Long serialNumber);
 
-    void modifyTask(Long projectSerialNumber, Long taskSerialNumber, String name, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers);
+    void modifyTask(Long taskSerialNumber, String title, String content, Long milestoneSerialNumber, List<Long> tagSerialNumbers);
 }

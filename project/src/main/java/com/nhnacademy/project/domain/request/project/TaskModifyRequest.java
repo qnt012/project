@@ -1,4 +1,4 @@
-package com.nhnacademy.projecttaskapi.domain.request;
+package com.nhnacademy.project.domain.request.project;
 
 import java.util.List;
 import lombok.Data;

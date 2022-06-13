@@ -35,9 +35,9 @@ public class DefaultTaskService implements TaskService {
     }
 
     @Override
-    public void modifyTask(Long projectSerialNumber, Long taskSerialNumber, String name,
+    public void modifyTask(Long taskSerialNumber,
                            String title, String content, Long milestoneSerialNumber,
                            List<Long> tagSerialNumbers) {
-
+        projectRepository.updateTask(taskSerialNumber, title, content, milestoneSerialNumber, tagSerialNumbers);
     }
 }

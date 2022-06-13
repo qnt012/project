@@ -10,12 +10,12 @@ import com.nhnacademy.projecttaskapi.exception.TagNotFoundException;
 import com.nhnacademy.projecttaskapi.exception.TaskNotFoundException;
 import com.nhnacademy.projecttaskapi.repository.*;
 import com.nhnacademy.projecttaskapi.service.TaskService;
-import com.nhnacademy.projecttaskapi.service.TaskTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +32,7 @@ public class DefaultTaskService implements TaskService {
     }
 
     @Override
+    @Transactional
     public Task createTask(TaskCreateRequest request) {
         Milestone milestone = null;
         if (!Objects.isNull(request.getMilestoneSerialNumber())) {
@@ -63,6 +64,7 @@ public class DefaultTaskService implements TaskService {
     }
 
     @Override
+    @Transactional
     public Task updateTask(TaskModifyRequest request) {
         Task task = taskRepository.findById(request.getTaskSerialNumber()).orElseThrow(TaskNotFoundException::new);
 
@@ -70,12 +72,7 @@ public class DefaultTaskService implements TaskService {
         if (!Objects.isNull(request.getMilestoneSerialNumber())) {
             milestone = milestoneRepository.findById(request.getMilestoneSerialNumber()).orElseThrow(MilestoneNotFound::new);
         }
-
-        ProjectMember.Pk projectMemberPk = new ProjectMember.Pk(request.getMemberId(), request.getProjectSerialNumber());
-        ProjectMember projectMember = projectMemberRepository.findById(projectMemberPk).orElseThrow(ProjectMemberNotFoundException::new);
-
         task.setMilestone(milestone);
-        task.setProjectMember(projectMember);
 
         Task result = taskRepository.save(task);
 

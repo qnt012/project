@@ -72,9 +72,8 @@ public class TaskController {
                                  @RequestParam("title") String title,
                                  @RequestParam("content") String content,
                                  @RequestParam(value = "milestone", required=false) Long milestoneSerialNumber,
-                                 @RequestParam(value = "tags", required = false) List<Long> tagSerialNumbers,
-                                 Principal principal) {
-        taskService.modifyTask(projectSerialNumber, taskSerialNumber, principal.getName(), title, content, milestoneSerialNumber, tagSerialNumbers);
+                                 @RequestParam(value = "tags", required = false) List<Long> tagSerialNumbers) {
+        taskService.modifyTask(taskSerialNumber, title, content, milestoneSerialNumber, tagSerialNumbers);
         return "redirect:/tasks/"+projectSerialNumber;
     }
 

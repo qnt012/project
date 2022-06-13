@@ -252,6 +252,22 @@ public class ProjectAdaptor implements ProjectRepository {
     }
 
     @Override
+    public void updateTask(Long taskSerialNumber,
+                           String title, String content, Long milestoneSerialNumber,
+                           List<Long> tagSerialNumbers) {
+        TaskModifyRequest body = new TaskModifyRequest(taskSerialNumber, title, content, milestoneSerialNumber, tagSerialNumbers);
+        RequestEntity<TaskModifyRequest> request = RequestEntity
+            .put("http://localhost:7070/tasks/update")
+            .accept(MediaType.APPLICATION_JSON)
+            .body(body);
+
+        restTemplate.exchange(
+            request,
+            Void.class
+        );
+    }
+
+    @Override
     public TaskDto findTask(Long serialNumber) {
         return restTemplate.exchange(
                 "http://localhost:7070/tasks/" + serialNumber,

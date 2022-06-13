@@ -19,11 +19,11 @@ public class Task {
     @Column(name = "task_serial_number")
     private Long serialNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "milestone_serial_number")
     private Milestone milestone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns(value = {
             @JoinColumn(name = "member_id"),
             @JoinColumn(name = "project_serial_number")
