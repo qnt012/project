@@ -94,3 +94,6 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:7070/comments/delete/2
+
+###
+GET http://localhost:7070/tasks/list/1
