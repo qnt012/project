@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -47,6 +48,7 @@ class ProjectControllerTest {
                 .andExpect(jsonPath("$.name").value(project.getName()))
                 .andExpect(jsonPath("$.status").value(project.getStatus()))
                 .andDo(print());
+        verify(projectService).getProject(serialNumber);
     }
 
     @Test
@@ -64,6 +66,7 @@ class ProjectControllerTest {
                 .andExpect(jsonPath("$.name").value(project.getName()))
                 .andExpect(jsonPath("$.status").value(project.getStatus()))
                 .andDo(print());
+        verify(projectService).createProject(request);
     }
 
     @Test
@@ -77,6 +80,7 @@ class ProjectControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.size()").value(1))
                 .andDo(print());
+        verify(projectService).getProjects(memberId);
     }
 
     @Test
@@ -90,6 +94,7 @@ class ProjectControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.size()").value(1))
                 .andDo(print());
+        verify(projectService).getProjectMembers(serialNumber);
     }
 
     @Test
@@ -107,5 +112,6 @@ class ProjectControllerTest {
                 .andExpect(jsonPath("$.pk").value(pk))
                 .andExpect(jsonPath("$.project").value(project))
                 .andDo(print());
+        verify(projectService).createProjectMember(request);
     }
 }
