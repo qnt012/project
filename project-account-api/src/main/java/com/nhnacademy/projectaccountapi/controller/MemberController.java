@@ -2,11 +2,14 @@ package com.nhnacademy.projectaccountapi.controller;
 
 import com.nhnacademy.projectaccountapi.domain.request.MemberCreateRequest;
 import com.nhnacademy.projectaccountapi.entity.Member;
+import com.nhnacademy.projectaccountapi.repository.ValidationFailedException;
 import com.nhnacademy.projectaccountapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +25,11 @@ public class MemberController {
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
-    public void postInsert(@RequestBody MemberCreateRequest request) {
+    public void postInsert(@Valid @RequestBody MemberCreateRequest request,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         memberService.createMember(request);
     }
 

@@ -4,11 +4,14 @@ import com.nhnacademy.projecttaskapi.domain.dto.CommentDto;
 import com.nhnacademy.projecttaskapi.domain.request.CommentCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.CommentModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Comment;
+import com.nhnacademy.projecttaskapi.exception.ValidationFailedException;
 import com.nhnacademy.projecttaskapi.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,12 +32,20 @@ public class CommentController {
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
-    public Comment postCommentCreate(@RequestBody CommentCreateRequest request) {
+    public Comment postCommentCreate(@Valid @RequestBody CommentCreateRequest request,
+                                     BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         return commentService.createComment(request);
     }
 
     @PutMapping("/update")
-    public Comment putComment(@RequestBody CommentModifyRequest request) {
+    public Comment putComment(@Valid @RequestBody CommentModifyRequest request,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         return commentService.modifyComment(request);
     }
 

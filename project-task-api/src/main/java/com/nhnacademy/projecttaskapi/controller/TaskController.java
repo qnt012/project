@@ -5,12 +5,15 @@ import com.nhnacademy.projecttaskapi.domain.dto.TaskTagDto;
 import com.nhnacademy.projecttaskapi.domain.request.TaskCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.TaskModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Task;
+import com.nhnacademy.projecttaskapi.exception.ValidationFailedException;
 import com.nhnacademy.projecttaskapi.service.TaskService;
 import com.nhnacademy.projecttaskapi.service.TaskTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,13 +40,21 @@ public class TaskController {
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
-    public Task postTaskCreate(@RequestBody TaskCreateRequest request) {
+    public Task postTaskCreate(@Valid @RequestBody TaskCreateRequest request,
+                               BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         return taskService.createTask(request);
 
     }
 
     @PutMapping("/update")
-    public Task putTask(@RequestBody TaskModifyRequest request) {
+    public Task putTask(@Valid @RequestBody TaskModifyRequest request,
+                        BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         return taskService.updateTask(request);
     }
 

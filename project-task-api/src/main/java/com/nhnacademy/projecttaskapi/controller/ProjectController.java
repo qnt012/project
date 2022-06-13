@@ -5,11 +5,14 @@ import com.nhnacademy.projecttaskapi.domain.request.ProjectCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.ProjectMemberCreateRequest;
 import com.nhnacademy.projecttaskapi.entity.Project;
 import com.nhnacademy.projecttaskapi.entity.ProjectMember;
+import com.nhnacademy.projecttaskapi.exception.ValidationFailedException;
 import com.nhnacademy.projecttaskapi.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +28,11 @@ public class ProjectController {
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
-    public Project postCreate(@RequestBody ProjectCreateRequest request) {
+    public Project postCreate(@Valid @RequestBody ProjectCreateRequest request,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         return projectService.createProject(request);
     }
 

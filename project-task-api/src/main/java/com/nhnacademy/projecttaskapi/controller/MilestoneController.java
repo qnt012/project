@@ -4,11 +4,15 @@ import com.nhnacademy.projecttaskapi.domain.dto.MilestoneDto;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneCreateRequest;
 import com.nhnacademy.projecttaskapi.domain.request.MilestoneModifyRequest;
 import com.nhnacademy.projecttaskapi.entity.Milestone;
+import com.nhnacademy.projecttaskapi.exception.ValidationFailedException;
 import com.nhnacademy.projecttaskapi.service.MilestoneService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,12 +32,20 @@ public class MilestoneController {
 
     @PostMapping("/insert")
     @ResponseStatus(HttpStatus.CREATED)
-    public Milestone postMilestoneCreate(@RequestBody MilestoneCreateRequest request) {
+    public Milestone postMilestoneCreate(@Valid @RequestBody MilestoneCreateRequest request,
+                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         return milestoneService.createMilestone(request);
     }
 
     @PutMapping("/update")
-    public Milestone putMilestone(@RequestBody MilestoneModifyRequest request) {
+    public Milestone putMilestone(@Valid @RequestBody MilestoneModifyRequest request,
+                                  BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
         return milestoneService.modifyMilestone(request);
     }
 
