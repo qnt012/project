@@ -9,8 +9,6 @@ import com.nhnacademy.projecttaskapi.service.TaskService;
 import com.nhnacademy.projecttaskapi.service.TaskTagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,43 +21,33 @@ public class TaskController {
     private final TaskTagService taskTagService;
 
     @GetMapping("{serialNumber}")
-    public ResponseEntity<TaskDto> getTask(@PathVariable Long serialNumber){
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(taskService.getTask(serialNumber));
+    public TaskDto getTask(@PathVariable Long serialNumber){
+        return taskService.getTask(serialNumber);
     }
 
     @GetMapping("/tags/{serialNumber}")
-    public ResponseEntity<List<TaskTagDto>> getTaskTags(@PathVariable Long serialNumber) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(taskTagService.getTaskTags(serialNumber));
+    public List<TaskTagDto> getTaskTags(@PathVariable Long serialNumber) {
+        return taskTagService.getTaskTags(serialNumber);
     }
 
     @GetMapping("/list/{projectSerialNumber}")
-    public ResponseEntity<List<TaskDto>> getTasks(@PathVariable Long projectSerialNumber) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(taskService.getTasks(projectSerialNumber));
+    public List<TaskDto> getTasks(@PathVariable Long projectSerialNumber) {
+        return taskService.getTasks(projectSerialNumber);
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<Task> postTaskCreate(@RequestBody TaskCreateRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(taskService.createTask(request));
+    @ResponseStatus(HttpStatus.CREATED)
+    public Task postTaskCreate(@RequestBody TaskCreateRequest request) {
+        return taskService.createTask(request);
 
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Task> putTask(@RequestBody TaskModifyRequest request) {
-        return ResponseEntity.status(HttpStatus.OK)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(taskService.updateTask(request));
+    public Task putTask(@RequestBody TaskModifyRequest request) {
+        return taskService.updateTask(request);
     }
 
     @DeleteMapping("/delete/{serialNumber}")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteTask(@PathVariable Long serialNumber) {
         taskService.deleteTask(serialNumber);
     }

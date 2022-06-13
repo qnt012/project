@@ -8,8 +8,6 @@ import com.nhnacademy.projecttaskapi.service.MilestoneService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,35 +17,27 @@ public class MilestoneController {
     private final MilestoneService milestoneService;
 
     @GetMapping("/{serialNumber}")
-    public ResponseEntity<MilestoneDto> getMilestone(@PathVariable Long serialNumber) {
-        return ResponseEntity.status(HttpStatus.OK)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(milestoneService.getMilestone(serialNumber));
+    public MilestoneDto getMilestone(@PathVariable Long serialNumber) {
+        return milestoneService.getMilestone(serialNumber);
     }
 
     @GetMapping("/list/{projectSerialNumber}")
-    public ResponseEntity<List<MilestoneDto>> getMilestones(@PathVariable Long projectSerialNumber) {
-        return ResponseEntity.status(HttpStatus.OK)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(milestoneService.getMilestones(projectSerialNumber));
+    public List<MilestoneDto> getMilestones(@PathVariable Long projectSerialNumber) {
+        return milestoneService.getMilestones(projectSerialNumber);
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<Milestone> postMilestoneCreate(@RequestBody MilestoneCreateRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(milestoneService.createMilestone(request));
+    @ResponseStatus(HttpStatus.CREATED)
+    public Milestone postMilestoneCreate(@RequestBody MilestoneCreateRequest request) {
+        return milestoneService.createMilestone(request);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Milestone> putMilestone(@RequestBody MilestoneModifyRequest request) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(milestoneService.modifyMilestone(request));
+    public Milestone putMilestone(@RequestBody MilestoneModifyRequest request) {
+        return milestoneService.modifyMilestone(request);
     }
 
     @DeleteMapping("/delete/{serialNumber}")
-    @ResponseStatus(HttpStatus.OK)
     public void deleteMilestone(@PathVariable Long serialNumber) {
         milestoneService.removeMilestone(serialNumber);
     }

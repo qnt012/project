@@ -38,7 +38,7 @@
     <span th:text="${comment.content}"></span><br/>
     <a th:href="@{|/comments/${projectSerialNumber}/${task.serialNumber}/modify/${comment.serialNumber}|}" th:if="${#strings.equals(comment.projectMemberPkMemberId, #authentication.name)}" >댓글 수정</a>
     <a th:href="@{|/comments/${projectSerialNumber}/${task.serialNumber}/delete/${comment.serialNumber}|}" th:if="${#strings.equals(comment.projectMemberPkMemberId, #authentication.name)}" >댓글 삭제</a>
-    <br/>
-</div><br/>
+    <br/><br/>
+</div>
 </body>
 </html>

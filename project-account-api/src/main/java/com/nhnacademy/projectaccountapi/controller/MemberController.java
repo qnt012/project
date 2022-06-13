@@ -5,8 +5,6 @@ import com.nhnacademy.projectaccountapi.entity.Member;
 import com.nhnacademy.projectaccountapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +16,8 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping
-    public ResponseEntity<List<Member>> getMembers() {
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(memberService.getMembers());
+    public List<Member> getMembers() {
+        return memberService.getMembers();
     }
 
     @PostMapping("/insert")
@@ -41,19 +37,16 @@ public class MemberController {
     }
 
     @GetMapping("/active/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void getActive(@PathVariable String id) {
         memberService.updateMemberStateActive(id);
     }
 
     @GetMapping("/dormant/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void getDormant(@PathVariable String id) {
         memberService.updateMemberStateDormant(id);
     }
 
     @GetMapping("/withdraw/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public void getWithdraw(@PathVariable String id) {
         memberService.updateMemberStateWithdraw(id);
     }
