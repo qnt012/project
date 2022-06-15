@@ -17,5 +17,5 @@ public interface ProjectService {
 
     Project getProject(Long serialNumber);
 
-    ProjectMember createProjectMember(ProjectMemberCreateRequest request);
+    ProjectMember createProjectMember(Long serialNumber, ProjectMemberCreateRequest request);
 }

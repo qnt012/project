@@ -26,7 +26,7 @@ public class ProjectController {
         return projectService.getProject(serialNumber);
     }
 
-    @PostMapping("/insert")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Project postCreate(@Valid @RequestBody ProjectCreateRequest request,
                               BindingResult bindingResult) {
@@ -36,7 +36,7 @@ public class ProjectController {
         return projectService.createProject(request);
     }
 
-    @GetMapping("/list/{memberId}")
+    @GetMapping("/memberId/{memberId}")
     public List<Project> getProjects(@PathVariable String memberId) {
         return projectService.getProjects(memberId);
     }
@@ -47,9 +47,9 @@ public class ProjectController {
         return projectService.getProjectMembers(serialNumber);
     }
 
-    @PostMapping("members/insert")
+    @PostMapping("{serialNumber}/members")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProjectMember postMembersInsert(@RequestBody ProjectMemberCreateRequest request) {
-        return projectService.createProjectMember(request);
+    public ProjectMember postMembersInsert(@PathVariable Long serialNumber, @RequestBody ProjectMemberCreateRequest request) {
+        return projectService.createProjectMember(serialNumber, request);
     }
 }

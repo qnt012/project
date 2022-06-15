@@ -46,9 +46,9 @@ public class DefaultProjectService implements ProjectService {
     }
 
     @Override
-    public ProjectMember createProjectMember(ProjectMemberCreateRequest request) {
-        Project project = projectRepository.findById(request.getProjectSerialNumber()).orElseThrow(ProjectNotFoundException::new);
-        ProjectMember.Pk pk = new ProjectMember.Pk(request.getMemberId(), request.getProjectSerialNumber());
+    public ProjectMember createProjectMember(Long serialNumber, ProjectMemberCreateRequest request) {
+        Project project = projectRepository.findById(serialNumber).orElseThrow(ProjectNotFoundException::new);
+        ProjectMember.Pk pk = new ProjectMember.Pk(request.getMemberId(), serialNumber);
         return projectMemberRepository.save(new ProjectMember(pk, project));
     }
 }

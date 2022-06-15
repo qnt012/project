@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/milestones")
+@RequestMapping("projects/{projectSerialNumber}/milestones")
 public class MilestoneController {
     private final MilestoneService milestoneService;
 
@@ -25,12 +25,12 @@ public class MilestoneController {
         return milestoneService.getMilestone(serialNumber);
     }
 
-    @GetMapping("/list/{projectSerialNumber}")
+    @GetMapping
     public List<MilestoneDto> getMilestones(@PathVariable Long projectSerialNumber) {
         return milestoneService.getMilestones(projectSerialNumber);
     }
 
-    @PostMapping("/insert")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Milestone postMilestoneCreate(@Valid @RequestBody MilestoneCreateRequest request,
                                          BindingResult bindingResult) {
@@ -40,16 +40,18 @@ public class MilestoneController {
         return milestoneService.createMilestone(request);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/{serialNumber}")
     public Milestone putMilestone(@Valid @RequestBody MilestoneModifyRequest request,
-                                  BindingResult bindingResult) {
+                                  BindingResult bindingResult,
+                                  @PathVariable Long serialNumber) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
-        return milestoneService.modifyMilestone(request);
+        return milestoneService.modifyMilestone(serialNumber, request);
     }
 
-    @DeleteMapping("/delete/{serialNumber}")
+    @DeleteMapping("/{serialNumber}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMilestone(@PathVariable Long serialNumber) {
         milestoneService.removeMilestone(serialNumber);
     }

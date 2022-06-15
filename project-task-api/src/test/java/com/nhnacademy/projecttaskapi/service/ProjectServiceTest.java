@@ -95,18 +95,19 @@ class ProjectServiceTest {
 
     @Test
     void createProjectMember() {
-        ProjectMemberCreateRequest request = new ProjectMemberCreateRequest(1L, "member");
-        ProjectMember.Pk pk = new ProjectMember.Pk(request.getMemberId(), request.getProjectSerialNumber());
+        Long projectSerialNumber = 1L;
+        ProjectMemberCreateRequest request = new ProjectMemberCreateRequest("member");
+        ProjectMember.Pk pk = new ProjectMember.Pk(request.getMemberId(), projectSerialNumber);
         ProjectMember projectMember = new ProjectMember(pk, project);
 
-        when(projectRepository.findById(request.getProjectSerialNumber())).thenReturn(Optional.of(project));
+        when(projectRepository.findById(projectSerialNumber)).thenReturn(Optional.of(project));
         when(projectMemberRepository.save(projectMember)).thenReturn(projectMember);
 
-        ProjectMember result = projectService.createProjectMember(request);
+        ProjectMember result = projectService.createProjectMember(projectSerialNumber, request);
 
         assertThat(result).isEqualTo(projectMember);
 
-        verify(projectRepository).findById(request.getProjectSerialNumber());
+        verify(projectRepository).findById(projectSerialNumber);
         verify(projectMemberRepository).save(projectMember);
     }
 }

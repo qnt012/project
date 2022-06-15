@@ -101,9 +101,10 @@ class MilestoneControllerTest {
 
     @Test
     void putMilestone() throws Exception {
-        MilestoneModifyRequest request = new MilestoneModifyRequest(1L, "마일스톤 수정");
-        Milestone milestone = new Milestone(request.getSerialNumber(), null, request.getName());
-        when(milestoneService.modifyMilestone(request)).thenReturn(milestone);
+        Long serialNumber = 1L;
+        MilestoneModifyRequest request = new MilestoneModifyRequest("마일스톤 수정");
+        Milestone milestone = new Milestone(serialNumber, null, request.getName());
+        when(milestoneService.modifyMilestone(serialNumber, request)).thenReturn(milestone);
         mockMvc.perform(put("/milestones/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -112,7 +113,7 @@ class MilestoneControllerTest {
                 .andExpect(jsonPath("$.serialNumber").value(milestone.getSerialNumber()))
                 .andExpect(jsonPath("$.name").value(milestone.getName()))
                 .andDo(print());
-        verify(milestoneService).modifyMilestone(request);
+        verify(milestoneService).modifyMilestone(serialNumber, request);
     }
 
     @Test

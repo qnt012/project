@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("tags")
+@RequestMapping("projects/{projectSerialNumber}/tags")
 public class TagController {
     private final TagService tagService;
 

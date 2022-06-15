@@ -30,8 +30,8 @@ public class DefaultMilestoneService implements MilestoneService {
 
     @Override
     @Transactional
-    public Milestone modifyMilestone(MilestoneModifyRequest request) {
-        Milestone milestone = milestoneRepository.findById(request.getSerialNumber()).orElseThrow(MilestoneNotFoundException::new);
+    public Milestone modifyMilestone(Long serialNumber, MilestoneModifyRequest request) {
+        Milestone milestone = milestoneRepository.findById(serialNumber).orElseThrow(MilestoneNotFoundException::new);
         milestone.setName(request.getName());
         return milestoneRepository.save(milestone);
     }

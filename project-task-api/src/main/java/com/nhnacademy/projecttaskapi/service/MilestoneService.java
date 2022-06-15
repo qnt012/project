@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MilestoneService {
     Milestone createMilestone(MilestoneCreateRequest request);
-    Milestone modifyMilestone(MilestoneModifyRequest request);
+    Milestone modifyMilestone(Long serialNumber, MilestoneModifyRequest request);
     void removeMilestone(Long serialNumber);
 
     List<MilestoneDto> getMilestones(Long projectSerialNumber);

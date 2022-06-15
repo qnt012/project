@@ -59,16 +59,17 @@ class MilestoneServiceTest {
 
     @Test
     void modifyMilestone() {
-        MilestoneModifyRequest request = new MilestoneModifyRequest(1L, "마일스톤수정");
+        Long serialNumber = 1L;
+        MilestoneModifyRequest request = new MilestoneModifyRequest("마일스톤수정");
         Milestone modifiedMilestone = new Milestone(1L, project, request.getName());
 
-        when(milestoneRepository.findById(request.getSerialNumber())).thenReturn(Optional.of(milestone));
+        when(milestoneRepository.findById(serialNumber)).thenReturn(Optional.of(milestone));
         when(milestoneRepository.save(modifiedMilestone)).thenReturn(modifiedMilestone);
 
-        Milestone result = milestoneService.modifyMilestone(request);
+        Milestone result = milestoneService.modifyMilestone(serialNumber, request);
         assertThat(result).isEqualTo(modifiedMilestone);
 
-        verify(milestoneRepository).findById(request.getSerialNumber());
+        verify(milestoneRepository).findById(serialNumber);
         verify(milestoneRepository).save(modifiedMilestone);
     }
 

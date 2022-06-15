@@ -99,11 +99,12 @@ class ProjectControllerTest {
 
     @Test
     void postMembersInsert() throws Exception{
-        ProjectMemberCreateRequest request = new ProjectMemberCreateRequest(1L, "member");
-        ProjectMember.Pk pk = new ProjectMember.Pk(request.getMemberId(), request.getProjectSerialNumber());
-        Project project = new Project(request.getProjectSerialNumber(), "admin", "project", "활성");
+        Long projectSerialNumber = 1L;
+        ProjectMemberCreateRequest request = new ProjectMemberCreateRequest("member");
+        ProjectMember.Pk pk = new ProjectMember.Pk(request.getMemberId(), projectSerialNumber);
+        Project project = new Project(projectSerialNumber, "admin", "project", "활성");
         ProjectMember member = new ProjectMember(pk, project);
-        when(projectService.createProjectMember(request)).thenReturn(member);
+        when(projectService.createProjectMember(projectSerialNumber, request)).thenReturn(member);
         mockMvc.perform(post("/projects/members/insert")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -112,6 +113,6 @@ class ProjectControllerTest {
                 .andExpect(jsonPath("$.pk").value(pk))
                 .andExpect(jsonPath("$.project").value(project))
                 .andDo(print());
-        verify(projectService).createProjectMember(request);
+        verify(projectService).createProjectMember(projectSerialNumber, request);
     }
 }
